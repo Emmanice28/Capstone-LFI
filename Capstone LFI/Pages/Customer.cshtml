@@ -1,0 +1,188 @@
+﻿@page
+@model Capstone_LFI.Pages.CustomerModel
+@{
+    ViewData["Title"] = "Add Customer";
+}
+<link rel="stylesheet" href="~/css/Design.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+<div class="container">
+    <div class="full-width-box">
+        <div style="display:flex;justify-content:space-between;">
+            <h5 class="inventory-title">Customer Management</h5>
+            <button style="width: 100px; height: 30px; border-radius: 4px; cursor: pointer;" type="button" onclick="exportTableToExcel()">Export</button>
+        </div>
+        <div class="table-wrapper">
+            <div class="table-container">
+                <table class="table" id="Table">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable(0)">Name</th>
+                            <th onclick="sortTable(1)">Address</th>
+                            <th onclick="sortTable(2)">Contact</th>
+                            <th onclick="sortTable(3)">Attendant</th>
+                            <th onclick="sortTable(4)">Products and Services</th>
+                            <th onclick="sortTable(5)">Additional Info</th>
+                            <th onclick="sortTable(6)">Time</th>
+                            <th onclick="sortTable(7)">Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model.InventoryList)
+                        {
+                            <tr>
+                                <td>@user.Name</td>
+                                <td>@user.Address</td>
+                                <td>@user.Attendant</td>
+                                <td>@user.ProductService</td>
+                                <td>@user.Additional</td>
+                                <td>@user.Time</td>
+                                <td>@user.Date</td>
+                                <td>@user.Contact</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-edit" onclick="populateForm('@user.ID', '@user.Name', '@user.Address', '@user.Contact', '@user.Attendant', '@user.ProductService', '@user.Additional', '@user.Time', '@user.Date')">Edit</button>
+                                        <div class="fillerdown"></div>
+                                        <form method="post" class="delete-form">
+                                            <input type="hidden" name="id" value="@user.ID" />
+                                            <button class="btn-delete" type="submit" name="action" value="Delete">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="filler"></div>
+    <div class="form-container">
+        <form method="post">
+            <div>
+                <h5>Add</h5>
+                <div class="form-group-container">
+                    <div class="form-labels">
+                        <label for="Name">Name</label>              <div style="padding-bottom:6px;"></div>
+                        <label for="Address">Address</label>        <div style="padding-bottom:6px;"></div>
+                        <label for="Contact">Contact</label>        <div style="padding-bottom:6px;"></div>
+                        <label for="Attendant">Attendant</label>    <div style="padding-bottom:6px;"></div>
+                        <label for="Product">Product</label>        <div style="padding-bottom:6px;"></div>
+                        <label for="Service">Service</label>        <div style="padding-bottom:6px;"></div>
+                        <label for="Additional">Additional</label>  <div style="padding-bottom:6px;"></div>
+                    </div>
+                    <div class="filler"></div>
+                    <div class="form-inputs">
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="NewItem.Name" class="form-control" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="NewItem.Address" class="form-control" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="NewItem.Contact" class="form-control" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="NewItem.Attendant" class="form-control" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="NewItem.ProductService" class="form-control" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="NewItem.Additional" class="form-control" style="width:200px;" />
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-submit" id="addUser" type="submit" name="action" value="Add" style="width: 334px;">Add Customer</button>
+                <p></p>
+            </div>
+        </form>
+        <form method="post">
+            <div>
+                <h5>Update</h5>
+                <div class="form-group-container">
+                    <div class="form-labels">
+                        <label for="ID">ID</label>                          <div style="padding-bottom:6px;"></div>
+                        <label for="Name">Name</label>                      <div style="padding-bottom:6px;"></div>
+                        <label for="Address">Address</label>                <div style="padding-bottom:6px;"></div>
+                        <label for="Contact">Contact</label>                <div style="padding-bottom:6px;"></div>
+                        <label for="Attendant">Attendant</label>            <div style="padding-bottom:6px;"></div>
+                        <label for="Product">Products & Services</label>    <div style="padding-bottom:6px;"></div>
+                        <label for="Additional">Additional</label>          <div style="padding-bottom:6px;"></div>
+                    </div>
+                    <div class="filler"></div>
+                    <div class="form-inputs">
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateItem.ID" class="form-control" id="UpdateItem_ID" readonly style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateItem.Name" class="form-control" id="UpdateItem_Name" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateItem.Address" class="form-control" id="UpdateItem_Address" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateItem.Contact" class="form-control" id="UpdateItem_Contact" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateItem.Attendant" class="form-control" id="UpdateItem_Attendant" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateItem.ProductService" class="form-control" id="UpdateItem_Product" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateItem.Additional" class="form-control" id="UpdateItem_Additional" style="width:200px;" />
+                        </div>
+                    </div>
+                </div>
+                <button onclick="updatedisable" class="btn-submit" id="UpdateItem" type="submit" name="action" value="Update" style="width: 334px;">Update User</button>
+                <p></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function populateForm(id, Name, Address, Contact, Attendant, ProductService, Additional, Time, Date) {
+        document.getElementById("UpdateItem_ID").value = id;
+        document.getElementById("UpdateItem_Name").value = Name;
+        document.getElementById("UpdateItem_Address").value = Address;
+        document.getElementById("UpdateItem_Contact").value = Contact;
+        document.getElementById("UpdateItem_Attendant").value = Attendant;
+        document.getElementById("UpdateItem_Product").value = ProductService;
+        document.getElementById("UpdateItem_Additional").value = Additional;
+
+        document.getElementById("UpdateItem").disabled = false;
+    }
+
+    window.onload = function () {
+        document.getElementById("UpdateItem").disabled = true;
+    };
+
+    function updatedisable() {
+        document.getElementById("UpdateItem").disabled = true;
+    };
+
+    function sortTable(columnIndex) {
+        const table = document.getElementById("Table");
+        const tbody = table.tBodies[0];
+        const rows = Array.from(tbody.rows);
+        const isAscending = table.getAttribute("data-sort-order") === "asc";
+
+        rows.sort((a, b) => {
+            const aText = a.cells[columnIndex].innerText.toLowerCase();
+            const bText = b.cells[columnIndex].innerText.toLowerCase();
+            return isAscending ? aText.localeCompare(bText) : bText.localeCompare(aText);
+        });
+
+        rows.forEach(row => tbody.appendChild(row)); 
+        table.setAttribute("data-sort-order", isAscending ? "desc" : "asc");
+    }
+    function exportTableToExcel() {
+        var table = document.getElementById("Table");
+        var wb = XLSX.utils.table_to_book(table, { sheet: "Customer" });
+        XLSX.writeFile(wb, "Customer Management.xlsx");
+    }
+</script>

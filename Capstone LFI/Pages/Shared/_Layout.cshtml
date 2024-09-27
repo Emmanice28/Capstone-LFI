@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Capstone_LFI</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Capstone_LFI.styles.css" asp-append-version="true" />
+    <style>
+        .head {
+            background-color: #e9c579;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            font-size: 13px;
+            width: 115px;
+            height: 35px;
+            text-align: center;
+            color: white;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #e7d09e !important;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav style="background-image: url('/images/LFI Background Header.png'); font-weight: bold;" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a href='/Home'>
+                    <img src="/images/LFI Logo with words.png" alt="Capstone_LFI Logo" style="max-height: 60px; background-color: transparent;" />
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div style="font-family: Arial, Helvetica, sans-serif;" class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a style="border-top-left-radius: 10px; border-bottom-left-radius: 10px; background-color: #e9c579; border: none;" onmouseover="this.style.backgroundColor='#e7d09e';" onmouseout="this.style.backgroundColor='#e9c579';" class="nav-link head" asp-area="" asp-page="/Home">Home</a>
+                        </li>
+                        <a style="color: transparent; font-size: 3px;">i</a>
+                        <li class="nav-item">
+                            <a style="background-color: #e9c579; border: none;" onmouseover="this.style.backgroundColor='#e7d09e';" onmouseout="this.style.backgroundColor='#e9c579';" class=" nav-link head" asp-area="" asp-page="/POS">Point of Sales</a>
+                        </li>
+                            <a style="color: transparent; font-size: 3px;">i</a>
+                            <li class="nav-item dropdown">
+                                <a style="background-color: #e9c579; border: none;" onmouseover="this.style.backgroundColor='#e7d09e';" onmouseout="this.style.backgroundColor='#e9c579';" class="nav-link head dropdown-toggle" href="#" id="managementDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Management</a>
+                                <ul style="background-color:transparent;" class="dropdown-menu" aria-labelledby="managementDropdown">
+                                    <li style="background-color: #e9c579; border: none;" onmouseover="this.style.backgroundColor='#e7d09e';" onmouseout="this.style.backgroundColor='#e9c579';"><a class="dropdown-item" asp-area="" asp-page="/Inventory">Inventory</a></li>
+                                    <li style="background-color: #e9c579; border: none;" onmouseover="this.style.backgroundColor='#e7d09e';" onmouseout="this.style.backgroundColor='#e9c579';"><a class="dropdown-item" asp-area="" asp-page="/Service">Service</a></li>
+                                    <li style="background-color: #e9c579; border: none;" onmouseover="this.style.backgroundColor='#e7d09e';" onmouseout="this.style.backgroundColor='#e9c579';"><a class="dropdown-item" asp-area="" asp-page="/Customer">Customer</a></li>
+                                    <li style="background-color: #e9c579; border: none;" onmouseover="this.style.backgroundColor='#e7d09e';" onmouseout="this.style.backgroundColor='#e9c579';"><a class="dropdown-item" asp-area="" asp-page="/User">User</a></li>
+                                </ul>
+                            </li>
+                            <a style="color: transparent; font-size: 3px;">i</a>
+                            <li class="nav-item dropdown">
+                            <a style="border-top-right-radius: 10px; border-bottom-right-radius: 10px; background-color: #e9c579; border: none;" onmouseover="this.style.backgroundColor='#e7d09e';" onmouseout="this.style.backgroundColor='#e9c579';" class="nav-link head dropdown-toggle" href="#" id="logsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Logs</a>
+                            <ul style="background-color:transparent;" class="dropdown-menu" aria-labelledby="logsDropdown">
+                                <li style="background-color: #e9c579; border: none;" onmouseover="this.style.backgroundColor='#e7d09e';" onmouseout="this.style.backgroundColor='#e9c579';"><a class="dropdown-item" asp-area="" asp-page="/Logs">System</a></li>
+                                    <li style="background-color: #e9c579; border: none;" onmouseover="this.style.backgroundColor='#e7d09e';" onmouseout="this.style.backgroundColor='#e9c579';"><a class="dropdown-item" asp-area="" asp-page="/Receipt">Receipt</a></li>
+                                </ul>
+                            </li>
+                    </ul>
+                    <div style="padding-left:5px;">
+                        <button style="font-weight:bold; font-size:13px;" onclick="window.location.href='/Login'">Log out</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var dropdown = document.querySelector('.dropdown');
+            dropdown.addEventListener('mouseover', function () {
+                var dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                dropdownMenu.classList.add('show');
+            });
+            dropdown.addEventListener('mouseleave', function () {
+                var dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                dropdownMenu.classList.remove('show');
+            });
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

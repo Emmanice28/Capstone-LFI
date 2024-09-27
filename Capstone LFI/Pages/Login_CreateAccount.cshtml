@@ -1,0 +1,127 @@
+﻿@page
+@model Capstone_LFI.Pages.Login_CreateAccountModel
+
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/css/Design.css">
+
+<style>
+    body {
+        background-image: url('/images/LFI Background.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    input, select {
+        width: 275px;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+</style>
+
+<div class="container">
+    <div style="border:1px solid black;">
+        <div>
+            <h2 style="text-align: center;">Create Account</h2>
+        </div>
+        <div style="padding-top:0px; padding-left:20px;">
+            <button style="font-weight:bold; font-size:13px;" onclick="window.location.href='/Login'">Back</button>
+        </div>
+        <form method="post" style="padding:30px; padding-bottom:20px;padding-top:15px;">
+            <div>
+                <div style="padding-bottom:5px;">
+                    <div style="padding-bottom:5px;">
+                        <label style="font-weight:bold; font-size:13px;">Specify the full name.</label>
+                    </div>
+                    <div style="padding-left:10px;">
+                        <input type="text" id="firstname" name="FirstName" asp-for="FirstName" value="First Name"
+                               onclick="this.value=''"
+                               onmouseout="if (!this.value.trim()) this.value='First Name'">
+                    </div>
+                    <div style="padding-left:10px;">
+                        <input type="text" id="middlename" name="MiddleName" asp-for="MiddleName" value="Middle Name (Optional)"
+                               onclick="this.value=''"
+                               onmouseout="if (!this.value.trim()) this.value='Middle Name'">
+                    </div>
+                    <div style="padding-left:10px;">
+                        <input type="text" id="lastname" name="LastName" asp-for="LastName" value="Last Name"
+                               onclick="this.value=''"
+                               onmouseout="if (!this.value.trim()) this.value='Last Name'">
+                    </div>
+                </div>
+                <div style="padding-bottom:5px;">
+                    <div style="padding-bottom:5px;">
+                        <label style="font-weight:bold; font-size:13px;">Specify the position.</label>
+                    </div>
+                    <div style="padding-left:10px;">
+                        <input type="text" id="position" name="Position" asp-for="Position" value="Position"
+                               onclick="this.value=''"
+                               onmouseout="if (!this.value.trim()) this.value='Position'">
+                    </div>
+                </div>
+                <div style="padding-bottom:5px;">
+                    <div style="padding-bottom:5px;">
+                        <label style="font-weight:bold; font-size:13px;">Select user level.</label>
+                    </div>
+                    <div style="padding-left:10px; padding-bottom:9px;">
+                        <select id="userlevel" name="UserLevel" asp-for="UserLevel" style="width:275px; border-color:#D7D7D7; border-radius:2px;" value="2"> 
+                            <option value="2">2</option>
+                            <option value="1">1</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="padding-bottom:5px;">
+                    <div style="padding-bottom:5px;">
+                        <label style="font-weight:bold; font-size:13px;">New Password.</label>
+                    </div>
+                    <div style="padding-left:10px;">
+                        <input type="password" id="password" name="NewPassword" asp-for="NewPassword" value="password"
+                               onclick="this.value=''"
+                               onmouseout="if (!this.value.trim()) this.value='New Password'">
+                    </div>
+                    <div style="padding-left:10px;">
+                        <input type="password" id="password1" name="NewPassword1" asp-for="NewPassword1" value="password"
+                               onclick="this.value=''"
+                               onmouseout="if (!this.value.trim()) this.value='Confirm Password'">
+                    </div>
+                </div>
+                <div style="padding-bottom:5px;">
+                    <div style="padding-bottom:5px;">
+                        <label style="font-weight:bold; font-size:13px;">Permission from authorized personnel required.</label>
+                    </div>
+                    <div style="padding-left:10px;">
+                        <input type="text" id="authusername" name="AuthUsername" asp-for="AuthUsername" value="Username"
+                               onclick="this.value=''"
+                               onmouseout="if (!this.value.trim()) this.value='Username'">
+                    </div>
+                    <div style="padding-left:10px;">
+                        <input type="password" id="authpassword" name="AuthPassword" asp-for="AuthPassword" value="Password"
+                               onclick="this.value=''"
+                               onmouseout="if (!this.value.trim()) this.value='Password'">
+                    </div>
+                </div>
+            </div>
+            <button style="width: 300px; height:30px;" type="submit">Submit</button>
+            @if (!string.IsNullOrEmpty(Model.Message))
+            {
+                <div class="message" style="text-align: center; margin-top: 10px; color:#ff0000;">
+                    @Model.Message
+                </div>
+            }
+        </form>
+    </div>
+</div>

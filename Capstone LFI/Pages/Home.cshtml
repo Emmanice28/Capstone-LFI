@@ -1,0 +1,636 @@
+﻿@page
+@model Capstone_LFI.Pages.HomeModel
+@{
+    ViewData["Title"] = "Add Home";
+}
+<link rel="stylesheet" href="~/css/Design.css">
+
+<style>
+    body {
+        background-image: url('/images/LFI Background.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        margin: 0;
+    }
+
+    thead {
+        background-color: #eeeeee;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        padding-bottom: 0px;
+    }
+
+    .box {
+        width: 500px;
+        height: 285px;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        margin-right: 10px;
+    }
+
+    .large-box {
+        width: 100%;
+        height: 380px;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        margin-right: 10px;
+    }
+
+    .full-width-box {
+        width: 100%;
+        height: 380px;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+
+    .table-container {
+        width: 100%;
+        height: 215px;
+        overflow-x: auto;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .table th, .table td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .low-stock {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .filler {
+        padding-bottom: 10px;
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+<div class="container">
+    <div class="box">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h5 style="font-size: 1.5em; margin: 0;">Low Stock Notification</h5>
+            <button style="width: 100px; height: 30px; border-radius: 4px; cursor: pointer;" type="button" onclick="exportTableToExcel()">Export</button>
+        </div>
+        <div style="margin-top: 15px;">
+            <div class="table-container">
+                <table id="lowStockTable" class="table" style="width: 100%; border-collapse: collapse;">
+                    <thead style="background-color: #bcbcbc;">
+                        <tr style="background-color: rgba(255, 255, 255, 0.7);">
+                            <th onclick="lowStocksortTable(0)">Category</th>
+                            <th onclick="lowStocksortTable(1)">Name</th>
+                            <th onclick="lowStocksortTable(2)">Description</th>
+                            <th onclick="lowStocksortTable(3)">Code</th>
+                            <th onclick="lowStocksortTable(4)">Quantity</th>
+                            <th onclick="lowStocksortTable(5)">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.LowStockItems)
+                        {
+                            <tr class="low-stock">
+                                <td>@item.Category</td>
+                                <td>@item.Name</td>
+                                <td>@item.Description</td>
+                                <td>@item.Code</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Price</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="box">
+        <div style="display:flex;justify-content:space-between;">
+            <h5 style="font-size: 1.5em; margin: 0;">Attendant Availability</h5>
+            <button style="width: 100px; height: 30px; border-radius: 4px; cursor: pointer;" type="button" onclick="openAttendantLog()">View All</button>
+        </div>
+        <div style="margin-top: 15px;">
+            <div class="table-container">
+                <table id="attendantavailTable" class="table" style="width: 100%; border-collapse: collapse;">
+                    <thead style="background-color: #bcbcbc;">
+                        <tr style="background-color: rgba(255, 255, 255, 0.7);">
+                            <th onclick="attendantavailsortTable(0)">Name</th>
+                            <th onclick="attendantavailsortTable(1)">Status</th>
+                            <th onclick="attendantavailsortTable(2)">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var attendant in Model.AttendantItems)
+                        {
+                            <tr>
+                                <td>@attendant.Name</td>
+                                <td>@attendant.Status</td>
+                                <td>
+                                    <div style="padding-bottom:4px;">
+                                        <button style="width:70px;" onclick="populateForm('@attendant.ID', '@attendant.Name', '@attendant.Status')">Edit</button>
+                                    </div>
+                                    <div>
+                                        <form method="post">
+                                            <input type="hidden" name="id" value="@attendant.ID" />
+                                            <button style="width:70px;" type="submit" name="action" value="Delete">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div style="padding-top:35px;">
+        <form method="post" asp-handler="Add">
+            <h5>Add Attendant</h5>
+            <div style="display: flex; justify-content: space-between;">
+                <div>
+                    <label style="padding-bottom: 6px;" for="Name">Name</label><br>
+                    <label style="padding-bottom: 6px;" for="Status">Status</label><br>
+                </div>
+                <div>
+                    <div class="form-group" style="padding-bottom: 7px;">
+                        <input style="width:200px; font-size:12px;" asp-for="NewItem.Name" id="AddItem_ID" class="form-control" />
+                    </div>
+                    <div class="form-group" style="padding-bottom: 7px;">
+                        <select style="width:200px; font-size:12px;" asp-for="NewItem.Status" id="AddItem_Status">
+                            <option value="Available">Available</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button style="width: 292px;" id="addItem" type="submit" name="action" value="Add">Add</button>
+            
+        </form>
+        <div class="fillerdown"></div>
+        <form method="post" asp-handler="Update">
+            <h5>Update Attendant</h5>
+            <div style="display: flex; justify-content: space-between;">
+                <div>
+                    <label style="padding-bottom: 5px;" for="ID">ID</label><br>
+                    <label style="padding-bottom: 7px;" for="Name">Name</label><br>
+                    <label style="padding-bottom: 7px;" for="Status">Status</label><br>
+                </div>
+                <div>
+                    <div class="form-group" style="padding-bottom: 7px;">
+                        <input style="width:200px; font-size:12px;" asp-for="UpdateItem.ID" class="form-control" id="UpdateItem_ID" readonly />
+                    </div>
+                    <div class="form-group" style="padding-bottom: 7px;">
+                        <input style="width:200px; font-size:12px;" asp-for="UpdateItem.Name" class="form-control" id="UpdateItem_Name" />
+                    </div>
+                    <div class="form-group" style="padding-bottom: 7px;">
+                        <select id="UpdateItem_Status" style="width:200px; font-size:12px;" asp-for="UpdateItem.Status">
+                            <option value="Available">Available</option>
+                            <option value="Unavailable">Unavailable</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button onclick="updatedisable" class="btn-submit" id="updateItem" type="submit" name="action" value="Update" style="width: 292px;" disabled>Update</button>
+        </form>
+    </div>
+</div>
+<div class="filler"></div>
+<div class="container">
+    <div class="large-box">
+        <h5 style="font-size: 1.5em; margin: 0;">Product List</h5>
+        <div style="margin-top: 15px;">
+            <div class="table-container" style="height: 310px;">
+                <table id="productlistTable" class="table" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th onclick="productlistsortTable(0)">Image</th>
+                            <th onclick="productlistsortTable(1)">Category</th>
+                            <th onclick="productlistsortTable(2)">Name</th>
+                            <th onclick="productlistsortTable(3)">Description</th>
+                            <th onclick="productlistsortTable(4)">Code</th>
+                            <th onclick="productlistsortTable(5)">Quantity</th>
+                            <th onclick="productlistsortTable(6)">Price</th>
+                            <th onclick="productlistsortTable(7)">QR Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.InventoryList)
+                        {
+                            string backgroundColor = "";
+                            string color = "";
+                            if (item.Quantity <= 10)
+                            {
+                                backgroundColor = "#ed4646";
+                                color = "white";
+                            }
+                            else if (item.Quantity <= 20)
+                            {
+                                backgroundColor = "#f4dc94";
+                            }
+                            else if (item.Quantity <= 30)
+                            {
+                                backgroundColor = "#d9ead3";
+                            }
+                            else
+                            {
+                                backgroundColor = "white";
+                            }
+                            <tr style="background-color: @backgroundColor; color: @color;">
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.ImageBase64))
+                                    {
+                                        <img style="width: 50px; height: 50px;" src="data:image/png;base64,@item.ImageBase64" alt="Product Image" class="product-image" />
+                                    }
+                                </td>
+                                <td>@item.Category</td>
+                                <td>@item.Name</td>
+                                <td>@item.Description</td>
+                                <td>@item.Code</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Price</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.QrCodeBase64))
+                                    {
+                                        <img style="width: 50px; height: 50px;" src="data:image/png;base64,@item.QrCodeBase64" alt="QR Code" class="qr-code" />
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="filler"></div>
+<div class="container">
+    <div class="full-width-box">
+        <h5 style="font-size: 1.5em; margin: 0;">Service List</h5>
+        <div style="margin-top: 15px;">
+            <div class="table-container" style="height: 230px;">
+                <table id="servicelistTable" class="table" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th onclick="servicelistsortTable(0)">Category</th>
+                            <th onclick="servicelistsortTable(1)">Name</th>
+                            <th onclick="servicelistsortTable(2)">Description</th>
+                            <th onclick="servicelistsortTable(3)">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var service in Model.ServiceList)
+                        {
+                            <tr>
+                                <td>@service.Category</td>
+                                <td>@service.Name</td>
+                                <td>@service.Description</td>
+                                <td>@service.Price</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="filler"></div>
+<div class="container">
+    <div class="full-width-box">
+        <h5 style="font-size: 1.5em; margin: 0;">Customer List</h5>
+        <div style="margin-top: 15px;">
+            <div class="table-container" style="height: 250px;">
+                <table id="customerlistTable" class="table" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th onclick="customerlistsortTable(0)">Name</th>
+                            <th onclick="customerlistsortTable(1)">Address</th>
+                            <th onclick="customerlistsortTable(2)">Contact</th>
+                            <th onclick="customerlistsortTable(3)">Attendant</th>
+                            <th onclick="customerlistsortTable(4)">Products and Services</th>
+                            <th onclick="customerlistsortTable(5)">Additional Info</th>
+                            <th onclick="customerlistsortTable(6)">Time</th>
+                            <th onclick="customerlistsortTable(7)">Date</th>
+                            <th onclick="customerlistsortTable(8)">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var customer in Model.CustomerList)
+                        {
+                            <tr>
+                                <td>@customer.Name</td>
+                                <td>@customer.Address</td>
+                                <td>@customer.Contact</td>
+                                <td>@customer.Attendant</td>
+                                <td>@customer.ProductService</td>
+                                <td>@customer.Additional</td>
+                                <td>@customer.Time</td>
+                                <td>@customer.Date</td>
+                                <td>
+                                    <button style="width:155px;" onclick="processTransaction('@customer.Name', '@customer.Address', '@customer.Contact')">Process Transaction</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="attendantLogModal" class="modal" style="width:478px;height:270px;left:705px;top:101px;">
+    <div class="modal-content">
+        <div class="fillerdown"></div>
+        <div style="display:flex;justify-content:space-between;">
+            <h5 style="font-size: 1.5em; margin: 0;">Attendant Log</h5>
+            <input style="width:80px; background-color:#ff756b;height:20px;font-size:12px; font-weight:bold;border:none;border-radius:5px;" type="button" value="Close" onclick="closeModal()" &times; />
+        </div>
+        <div style="margin-top: 15px;">
+            <div class="table-container">
+                <table id="attendantLogTable" class="table" style="width: 100%; border-collapse: collapse;">
+                    <thead style="background-color: #bcbcbc;">
+                        <tr style="background-color: rgba(255, 255, 255, 0.7);">
+                            <th onclick="attendantLogsortTable(0)">Name</th>
+                            <th onclick="attendantLogsortTable(1)">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var log in Model.AttendantLogs)
+                        {
+                            <tr>
+                                <td>@log.Name</td>
+                                <td>
+                                    <button style="width:70px;" onclick="populateForm2('@log.Name','Available')">Add</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div> 
+<script>
+    function openAttendantLog() {
+        document.getElementById("attendantLogModal").style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById("attendantLogModal").style.display = "none";
+    }
+    function exportTableToExcel() {
+        const table = document.getElementById('lowStockTable');
+        const wb = XLSX.utils.table_to_book(table, { sheet: "Inventory" });
+        XLSX.writeFile(wb, 'Low Stock Notification.xlsx');
+    }
+
+    function populateForm2(name, status) {
+        document.getElementById('AddItem_ID').value = name;
+        document.getElementById('AddItem_Status').value = (status === null || status === " ") ? "Available" : status;
+
+        closeModal()
+    }
+
+    function populateForm(id, name, status) {
+        document.getElementById('UpdateItem_ID').value = id;
+        document.getElementById('UpdateItem_Name').value = name;
+        document.getElementById('UpdateItem_Status').value = (status === null || status === " ") ? "Available" : status;
+
+        document.getElementById("updateItem").disabled = false;
+    }
+
+    window.onload = function () {
+        document.getElementById("updateItem").disabled = true;
+    };
+
+    function updatedisable() {
+        document.getElementById("updateItem").disabled = true;
+    };
+
+    function lowStocksortTable(columnIndex) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("lowStockTable");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[columnIndex];
+                y = rows[i + 1].getElementsByTagName("TD")[columnIndex];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+    function attendantavailsortTable(columnIndex) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("attendantavailTable");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[columnIndex];
+                y = rows[i + 1].getElementsByTagName("TD")[columnIndex];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+    function productlistsortTable(columnIndex) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("productlistTable");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[columnIndex];
+                y = rows[i + 1].getElementsByTagName("TD")[columnIndex];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+    function servicelistsortTable(columnIndex) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("servicelistTable");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[columnIndex];
+                y = rows[i + 1].getElementsByTagName("TD")[columnIndex];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+    function customerlistsortTable(columnIndex) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("customerlistTable");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[columnIndex];
+                y = rows[i + 1].getElementsByTagName("TD")[columnIndex];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+    function attendantLogsortTable(columnIndex) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("attendantLogTable");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[columnIndex];
+                y = rows[i + 1].getElementsByTagName("TD")[columnIndex];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+</script>

@@ -1,0 +1,203 @@
+﻿@page
+@model Capstone_LFI.Pages.ServiceModel
+@{
+    ViewData["Title"] = "Add Service";
+}
+<link rel="stylesheet" href="~/css/Design.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+<div class="container">
+    <div class="full-width-box">
+        <div style="display:flex;justify-content:space-between;">
+            <h5 class="inventory-title">Service Management</h5>
+            <button style="width: 100px; height: 30px; border-radius: 4px; cursor: pointer;" type="button" onclick="exportTableToExcel()">Export</button>
+        </div>
+        <div class="table-wrapper">
+            <div class="table-container">
+                <table class="table" id="Table">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable(0)">Category</th>
+                            <th onclick="sortTable(1)">Name</th>
+                            <th onclick="sortTable(2)">Description</th>
+                            <th onclick="sortTable(3)">Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.InventoryList)
+                        {
+                            <tr>
+                                <td>@item.Category</td>
+                                <td>@item.Name</td>
+                                <td>@item.Description</td>
+                                <td>@item.Price</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-edit" onclick="populateForm('@item.ID', '@item.Category', '@item.Name', '@item.Description', '@item.Price')">Edit</button>
+                                        <div class="fillerdown"></div>
+                                        <form method="post" class="delete-form">
+                                            <input type="hidden" name="id" value="@item.ID" />
+                                            <button class="btn-delete" type="submit" name="action" value="Delete">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="filler"></div>
+    <div class="form-container">
+        <form method="post" enctype="multipart/form-data">
+            <div>
+                <h5>Add</h5>
+                <div class="form-group-container">
+                    <div class="form-labels">
+                        <label for="Category">Category</label>          <div style="padding-bottom:6px;"></div>
+                        <label for="Name">Name</label>                  <div style="padding-bottom:6px;"></div>
+                        <label for="Description">Description</label>    <div style="padding-bottom:6px;"></div>
+                        <label for="Price">Price</label>                <div style="padding-bottom:6px;"></div>
+                    </div>
+                    <div class="fillerright"></div>
+                    <div class="form-inputs">
+                        <div class="form-group">
+                            <select style="font-size:12px; width:200px; text-align: left; text-align-last: left;" asp-for="NewItem.Category" id="NewItem_Category">
+                                <option value="Body Treatments and Pampering">Body Treatments and Pampering</option>
+                                <option value="Brow and Lash">Brow and Lash</option>
+                                <option value="Cosmetic Tattoo">Cosmetic Tattoo</option>
+                                <option value="Diamond Peel">Diamond Peel</option>
+                                <option value="Facial Treatments and Masks">Facial Treatments and Masks</option>
+                                <option value="Foot Care">Foot Care</option>
+                                <option value="Hair Removal">Hair Removal</option>
+                                <option value="Hand Care">Hand Care</option>
+                                <option value="Power Peel">Power Peel</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="NewItem.Name" id="NewItem_Name" class="form-control" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="NewItem.Description" class="form-control" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="NewItem.Price" class="form-control" style="width:200px;" />
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-submit" id="addItem" type="submit" name="action" value="Add" style="width: 292px;">Add</button>
+                <p></p>
+            </div>
+        </form>
+        <div class="filler"></div>
+        <form method="post">
+            <div>
+                <h5>Update</h5>
+                <div class="form-group-container">
+                    <div class="form-labels">
+                        <label for="ID">ID</label>                      <div style="padding-bottom:6px;"></div>
+                        <label for="Category">Category</label>          <div style="padding-bottom:6px;"></div>
+                        <label for="Name">Name</label>                  <div style="padding-bottom:6px;"></div>
+                        <label for="Description">Description</label>    <div style="padding-bottom:6px;"></div>
+                        <label for="Price">Price</label>                <div style="padding-bottom:6px;"></div>
+                    </div>
+                    <div class="fillerright"></div>
+                    <div class="form-inputs">
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateItem.ID" class="form-control" id="UpdateItem_ID" readonly style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <select style="font-size:12px; width:200px; text-align: left; text-align-last: left;" asp-for="UpdateItem.Category" id="UpdateItem_Category">
+                                <option value="Body Treatments and Pampering">Body Treatments and Pampering</option>
+                                <option value="Brow and Lash">Brow and Lash</option>
+                                <option value="Cosmetic Tattoo">Cosmetic Tattoo</option>
+                                <option value="Diamond Peel">Diamond Peel</option>
+                                <option value="Facial Treatments and Masks">Facial Treatments and Masks</option>
+                                <option value="Foot Care">Foot Care</option>
+                                <option value="Hair Removal">Hair Removal</option>
+                                <option value="Hand Care">Hand Care</option>
+                                <option value="Power Peel">Power Peel</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateItem.Name" class="form-control" id="UpdateItem_Name" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateItem.Description" class="form-control" id="UpdateItem_Description" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateItem.Price" class="form-control" id="UpdateItem_Price" style="width:200px;" />
+                        </div>
+                    </div>
+                </div>
+                <button onclick="updatedisable" class="btn-submit" id="updateItem" type="submit" name="action" value="Update" style="width: 292px;" disabled>Update</button>
+                <p></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function populateForm(id, category, name, description, price) {
+        document.getElementById("UpdateItem_ID").value = id;
+        document.getElementById("UpdateItem_Category").value = category;
+        document.getElementById("UpdateItem_Name").value = name;
+        document.getElementById("UpdateItem_Description").value = description;
+        document.getElementById("UpdateItem_Price").value = price;
+
+        document.getElementById("updateItem").disabled = false;
+    }
+
+    window.onload = function () {
+        document.getElementById("updateItem").disabled = true;
+    };
+
+    function updatedisable() {
+        document.getElementById("updateItem").disabled = true;
+    };
+
+    function sortTable(columnIndex) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("Table");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[columnIndex];
+                y = rows[i + 1].getElementsByTagName("TD")[columnIndex];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+        }
+        function exportTableToExcel() {
+            var table = document.getElementById("Table");
+            var wb = XLSX.utils.table_to_book(table, { sheet: "Service" });
+            XLSX.writeFile(wb, "Service Management.xlsx");
+        }
+</script>

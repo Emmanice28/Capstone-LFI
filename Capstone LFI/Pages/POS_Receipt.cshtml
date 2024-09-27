@@ -1,0 +1,104 @@
+﻿@page
+@model POS_ReceiptModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/Design.css">
+    <style>
+        .details {
+            font-size: 13px;
+        }
+    </style>
+    <script>
+        function preparePrint() {
+            document.getElementById('printButtonContainer').style.display = 'none';
+            document.getElementById('backButtonContainer').style.display = 'none';
+        }
+
+        function restorePrint() {
+            document.getElementById('printButtonContainer').style.display = 'block';
+            document.getElementById('backButtonContainer').style.display = 'block';
+        }
+
+        window.onbeforeprint = preparePrint;
+        window.onafterprint = restorePrint;
+    </script>
+</head>
+<body>
+    <div id="printButtonContainer">
+        <div class="container" style="width:400px; height:110px;">
+            <div class="full-width-box" style="padding-left:52px;">
+                <h5>Receipt</h5>
+                <div style="padding-bottom:10px;">
+                    <div style="padding-bottom:5px;">
+                        <button onclick="window.print()" style="width: 260px;">Print Receipt</button>
+                    </div>
+                    <form method="post">
+                        <button style="width: 260px;" type="submit" name="action" value="Back">Back</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="width:370px;">
+        <div class="full-width-box" style="height:100%;">
+            <div style="border:1px solid black; width:100%; padding:10px; padding-bottom:20px; padding-top:20px;">
+                <div style="padding-bottom:5px;" class="details">
+                    <label>Reference Number: @Model.ReferenceNumber</label><br />
+                    <label>Time: @Model.Time</label><br />
+                    <label>Date: @Model.Date</label>
+                </div>
+                <div style="padding-bottom:5px;">
+                    <table class="details" style="border:1px solid black;">
+                        <thead>
+                            <tr>
+                                <th>Quantity or Session</th>
+                                <th>Product or Service</th>
+                                <th>Price</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody style="border:1px solid black;">
+                            @foreach (var item in Model.PurchaseItems)
+                            {
+                                <tr>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Price.ToString("C")</td>
+                                    <td>@item.Total.ToString("C")</td>
+                                </tr>
+                            }
+                            <tr style="border:1px solid black;">
+                                <td colspan="3">Total Quantity</td>
+                                <td style="font-weight:bold;">@Model.TotalQuantity</td>
+                            </tr>
+                            <tr style="border:1px solid black;">
+                                <td colspan="3">Total Session</td>
+                                <td style="font-weight:bold;">@Model.TotalSession</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Total Amount</td>
+                                <td style="font-weight:bold;">@Model.TotalAmount</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <div class="details">
+                        <label>Mode of Payment: @Model.PaymentMethod</label><br />
+                        <label>@Model.PaidRefNo</label><br />
+                        <label>Change: @Model.Change</label><br />
+                        <label>Customer Name: @Model.CustomerName</label><br />
+                        <label>Customer Address: @Model.CustomerAddress</label><br />
+                        <label>Customer Contact: @Model.CustomerContact</label><br />
+                        <label>Attendant Name: @Model.AttendantName</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

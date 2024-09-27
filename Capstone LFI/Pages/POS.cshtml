@@ -1,0 +1,638 @@
+﻿@page
+@model POSModel
+@{
+    ViewData["Title"] = "Point of Sales";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/Design.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #calculatorOverlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        #calculator {
+            position: absolute;
+            top: 45%;
+            left: 80%;
+            ;
+            transform: translate(-50%, -50%);
+            background-color: #e6e6e6;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 295px;
+        }
+
+            #calculator input[type="button"] {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+                margin: 5px;
+                cursor: pointer;
+                border-radius: 5px;
+                border: none;
+            }
+
+            #calculator #result {
+                width: 250px;
+                height: 50px;
+                text-align: right;
+                margin-bottom: 10px;
+                font-size: 20px;
+                padding-right: 10px;
+                box-sizing: border-box;
+            }
+
+        #hiddenInventoryTable {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" style="display:flex;">
+        <div style="display: flex; justify-content: space-between;">
+            <div class="container">
+                <div class="full-width-box">
+                    <div style="display:flex; justify-content:space-between;">
+                        <h5 class="inventory-title">Point of Sales</h5>
+                        <button style="width: 150px; height: 30px; border-radius: 4px; cursor: pointer;" type="button" id="opencalculator">Open Calculator</button>
+                    </div>
+                    <div class="table-wrapper">
+                        <div class="table-container">
+                            <table name="tableItem" id="tableItem" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Price</th>
+                                        <th>Quantity / Session</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody">
+                                    <tr id="free">
+                                        <td colspan="5">Add products or services.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div style="width:340px; display: flex; justify-content: space-between;">
+                <h5>Customer</h5>
+            </div>
+            <div style="width:340px; display: flex; justify-content: space-between;">
+                <div>
+                    <label for="customerName" style="padding-bottom: 4px;">Name</label><br>
+                    <label for="customerAddress" style="padding-bottom: 4px;">Complete Address</label><br>
+                    <label for="customerContact">Contact Number</label>
+                </div>
+                <div>
+                    @{
+                        var customerName = Request.Query["customerName"];
+                        var customerAddress = Request.Query["customerAddress"];
+                        var customerContact = Request.Query["customerContact"];
+                    }
+                    <textarea id="customerName" name="customerName">@customerName</textarea><br>
+                    <textarea id="customerAddress" name="customerAddress">@customerAddress</textarea><br>
+                    <textarea id="customerContact" name="customerContact">@customerContact</textarea><br />
+                </div>
+            </div>
+            <p></p>
+            <h5 style="padding-top:0px;">Attendant</h5>
+            <div style="display: flex; justify-content: space-between;">
+                <div>
+                    <label for="attendantName" style="padding-bottom: 4px;">Name</label><br>
+                </div>
+                <div style="padding-bottom:6px;">
+                    <select id="attendantName" name="attendantName">
+                        <option value=""></option>
+                        @foreach (var item in Model.AttendantItems.Where(x => x.Status == "Available"))
+                        {
+                            <option value="@item.Name">@item.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <p></p>
+            <h5>Products</h5>
+            <div style="display: flex; justify-content: space-between;">
+                <div>
+                    <label for="productSelect" style="padding-bottom: 6px;">Category</label><br>
+                    <label for="productSelect2" style="padding-bottom: 6px;">Name</label><br>
+                    <label for="productSelect3" style="padding-bottom: 4px;">Description</label><br>
+                    <label for="productPrice" style="padding-bottom: 2px;">Price</label><br>
+                    <label for="productQuantity" style="padding-bottom: 6px;">Available Quantity</label><br>
+                    <label for="desiredQuantity" style="padding-bottom: 10px;">Desired Quantity</label><br>
+                </div>
+                <div>
+                    <select id="productSelect">
+                        <option value=""> </option>
+                        @{
+                            var uniqueCategories = new HashSet<string>();
+                            foreach (var item in Model.InventoryItems)
+                            {
+                                if (uniqueCategories.Add(item.Category))
+                                {
+                                    <option value="@item.Category">@item.Category</option>
+                                }
+                            }
+                        }
+                    </select>
+                    <div style="padding-bottom:6px;"></div>
+                    <select id="productSelect2">
+                    </select>
+                    <div style="padding-bottom:6px;"></div>
+                    <select id="productSelect3">
+                    </select>
+                    <div style="padding-bottom:6px;"></div>
+                    <span id="productPrice">0</span><br>
+                    <span id="productQuantity">0</span>
+                    <div style="padding-bottom:6px;"></div>
+                    <textarea id="desiredQuantity" name="desiredQuantity"></textarea>
+                </div>
+            </div>
+            <button style="width: 340px;" id="additem" type="button">Add</button>
+            <p></p>
+            <h5>Services</h5>
+            <div style="display: flex; justify-content: space-between;">
+                <div>
+                    <label for="serviceSelect" style="padding-bottom: 6px;">Category</label><br>
+                    <label for="serviceSelect2" style="padding-bottom: 6px;">Name</label><br>
+                    <label for="serviceSelect3" style="padding-bottom: 4px;">Description</label><br>
+                    <label for="servicePrice" style="padding-bottom: 4px;">Price</label><br>
+                    <label for="desiredSession" style="padding-bottom: 6px;">Desired Session</label><br>
+                </div>
+                <div>
+                    <select id="serviceSelect">
+                        <option value=""> </option>
+                        @{
+                            var uniquesCategories = new HashSet<string>();
+                            foreach (var item in Model.ServiceItems)
+                            {
+                                if (uniqueCategories.Add(item.Category))
+                                {
+                                    <option value="@item.Category">@item.Category</option>
+                                }
+                            }
+                        }
+                    </select>
+                    <div style="padding-bottom:6px;"></div>
+                    <select id="serviceSelect2">
+                    </select>
+                    <div style="padding-bottom:6px;"></div>
+                    <select id="serviceSelect3">
+                    </select>
+                    <div style="padding-bottom:6px;"></div>
+                    <span id="servicePrice">0</span><br>
+                    <div style="padding-bottom:6px;"></div>
+                    <textarea id="desiredSession" name="desiredSession"></textarea>
+                </div>
+            </div>
+            <button style="width: 340px;" id="addservice" type="button">Add</button>
+            <p></p>
+            <h5>Payment</h5>
+            <div style="display: flex; justify-content: space-between;">
+                <div>
+                    <label for="discount" style="padding-bottom: 2px;">Discount</label><br>
+                    <label for="totalAmount1" style="padding-bottom: 2px;">Total Amount</label><br>
+                    <span id="totalAmount1"></span>
+                    <label for="payment" style="padding-bottom: 4px;">Payment</label><br>
+                    <label for="paid" id="labelPaid" style="padding-bottom: 1px;">Amount</label><br>
+                    <label for="paid" style="padding-bottom: 4px;">Change</label><br>
+                </div>
+                <div style="padding-bottom:6px;">
+                    <textarea id="discount" name="discount"></textarea><br>
+                    <label id="totalAmount">0</label><br>
+                    <div style="padding-bottom:7px;">
+                        <select id="payment" name="payment">
+                            <option value=""></option>
+                            <option value="Cash">Cash</option>
+                            <option value="G-Cash">G-Cash</option>
+                        </select>
+                    </div>
+                    <textarea id="paid" name="paid"></textarea><br>
+                    <label for="paid" id="labelChange">Not Applicable</label>
+                </div>
+            </div>
+            <input type="hidden" id="TableItems" name="TableItems" />
+            <button style="width: 340px;" id="pay" type="submit" name="action" value="Pay">Process</button>
+        </div>
+    </form>
+
+    <table id="hiddenInventoryTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Description</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.InventoryItems)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Description</td>
+                    <td>@item.Category</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div id="calculatorOverlay">
+        <div id="calculator">
+            <div style="justify-content:space-between; display:flex;">
+                <label style="color:transparent;">2</label>
+                <input style="background-color:#ff756b;height:25px;font-size:14px; font-weight:bold;" type="button" value="Close" id="closeCalculator" />
+            </div>
+            <div class="fillerdown"></div>
+            <input type="text" id="result" disabled />
+            <br />
+            <input type="button" value="7" />
+            <input type="button" value="8" />
+            <input type="button" value="9" />
+            <input type="button" value="/" />
+            <br />
+            <input type="button" value="4" />
+            <input type="button" value="5" />
+            <input type="button" value="6" />
+            <input type="button" value="*" />
+            <br />
+            <input type="button" value="1" />
+            <input type="button" value="2" />
+            <input type="button" value="3" />
+            <input type="button" value="-" />
+            <br />
+            <input type="button" value="0" />
+            <input type="button" value="." />
+            <input type="button" value="+" />
+            <input type="button" value="=" />
+            <br />
+            <input style="width:240px;" type="button" value="Reset" />
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var inventoryItems = @Html.Raw(Json.Serialize(Model.InventoryItems));
+            var serviceItems = @Html.Raw(Json.Serialize(Model.ServiceItems));
+
+            function calculateTotalAmount() {
+                var totalAmount = 0;
+                $("#tableBody tr").each(function () {
+                    var totalText = $(this).find("td:eq(3)").text().trim(); // Get text and trim spaces
+                    var total = parseFloat(totalText); // Parse as float
+
+                    // Check if total is a valid number
+                    if (!isNaN(total)) {
+                        totalAmount += total; // Add to totalAmount if valid
+                    }
+                });
+                return totalAmount.toFixed(2); // Return fixed two decimal places
+            }
+
+            function applyDiscount(totalAmount) {
+                var discount = $("#discount").val();
+                var discountAmount = 0;
+
+                if (discount.endsWith("%")) {
+                    var percentage = parseFloat(discount);
+                    if (!isNaN(percentage)) {
+                        discountAmount = totalAmount * (percentage / 100);
+                    }
+                } else {
+                    var flatDiscount = parseFloat(discount);
+                    if (!isNaN(flatDiscount)) {
+                        discountAmount = flatDiscount;
+                    }
+                }
+
+                return (totalAmount - discountAmount).toFixed(2);
+            }
+
+            function updateTotalAmount() {
+                var totalAmount = calculateTotalAmount();
+                var discountedAmount = applyDiscount(totalAmount);
+                $("#totalAmount").text(discountedAmount);
+                updateChangeOrReference();
+            }
+
+            function updateChangeOrReference() {
+                var payment = $("#payment").val();
+                var totalAmount = calculateTotalAmount();
+                var discountedAmount = applyDiscount(totalAmount);
+                var amountPaidElement = $("#paid");
+                var amountPaid = parseFloat(amountPaidElement.val());
+                var changeElement = $("#labelChange");
+
+                if (payment === "Cash") {
+                    if (!isNaN(amountPaid)) {
+                        var change = amountPaid - discountedAmount;
+                        changeElement.text(change >= 0 ? change.toFixed(2) : "Invalid Amount");
+                    } else {
+                        changeElement.text("Invalid Amount");
+                    }
+                } else {
+                    $("#labelChange").text("Not Applicable");
+                }
+            }
+
+            // Populate names based on the selected category
+            $("#productSelect").change(function () {
+                var selectedCategory = $(this).val();
+                $("#productSelect2").empty().append('<option value=""> </option>');
+                $("#productSelect3").empty().append('<option value=""> </option>');
+
+                if (selectedCategory) {
+                    var filteredItems = inventoryItems.filter(function (item) {
+                        return item.category === selectedCategory;
+                    });
+
+                    filteredItems.forEach(function (item) {
+                        $("#productSelect2").append('<option value="' + item.name + '">' + item.name + '</option>');
+                    });
+                }
+            });
+
+            // Populate descriptions based on the selected name and category
+            $("#productSelect2").change(function () {
+                var selectedCategory = $("#productSelect").val();
+                var selectedItemName = $(this).val();
+                $("#productSelect3").empty().append('<option value=""> </option>');
+
+                if (selectedCategory && selectedItemName) {
+                    var filteredItems = inventoryItems.filter(function (item) {
+                        return item.category === selectedCategory && item.name === selectedItemName;
+                    });
+
+                    filteredItems.forEach(function (item) {
+                        $("#productSelect3").append('<option value="' + item.description + '">' + item.description + '</option>');
+                    });
+                }
+            });
+
+            // Update price and quantity when a description is selected
+            function updateProductDetails() {
+                var selectedItemName = $("#productSelect2").val();
+                var selectedDescription = $("#productSelect3").val() || " "; // Default to blank if no value selected
+
+                // Find inventory item based on selected item name and description
+                var inventoryItem = inventoryItems.find(function (item) {
+                    return item.name === selectedItemName && item.description === selectedDescription;
+                });
+
+                // Update price and quantity display
+                if (inventoryItem) {
+                    $("#productPrice").text(inventoryItem.price);
+                    $("#productQuantity").text(inventoryItem.quantity);
+                } else {
+                    $("#productPrice").text("0");
+                    $("#productQuantity").text("0");
+                }
+            }
+
+            // Attach the change event to all relevant dropdowns
+            $("#productSelect, #productSelect2, #productSelect3").change(function () {
+                updateProductDetails(); // Update details whenever a dropdown changes
+            });
+
+            $("#serviceSelect").change(function () {
+                var selectedCategory = $(this).val();
+                $("#serviceSelect2").empty().append('<option value=""> </option>');
+                $("#serviceSelect3").empty().append('<option value=""> </option>');
+
+                if (selectedCategory) {
+                    var filteredItems = serviceItems.filter(function (item) {
+                        return item.category === selectedCategory;
+                    });
+
+                    filteredItems.forEach(function (item) {
+                        $("#serviceSelect2").append('<option value="' + item.name + '">' + item.name + '</option>');
+                    });
+                }
+            });
+
+            // Populate descriptions based on the selected name and category
+            $("#serviceSelect2").change(function () {
+                var selectedCategory = $("#serviceSelect").val();
+                var selectedItemName = $(this).val();
+                $("#serviceSelect3").empty().append('<option value=""> </option>');
+
+                if (selectedCategory && selectedItemName) {
+                    var filteredItems = serviceItems.filter(function (sitem) {
+                        return sitem.category === selectedCategory && sitem.name === selectedItemName;
+                    });
+
+                    filteredItems.forEach(function (sitem) {
+                        $("#serviceSelect3").append('<option value="' + sitem.description + '">' + sitem.description + '</option>');
+                    });
+                }
+            });
+
+            // Update price and quantity when a description is selected
+            function updateServiceDetails() {
+                var selectedItemName = $("#serviceSelect2").val();
+                var selectedDescription = $("#serviceSelect3").val() || " "; // Default to blank if no value selected
+
+                // Find inventory item based on selected item name and description
+                var serviceItem = serviceItems.find(function (sitem) {
+                    return sitem.name === selectedItemName && sitem.description === selectedDescription;
+                });
+
+                // Update price and quantity display
+                if (serviceItem) {
+                    $("#servicePrice").text(serviceItem.price);
+                    $("#serviceSession").text(serviceItem.quantity);
+                } else {
+                    $("#servicePrice").text("0");
+                    $("#serviceSession").text("0");
+                }
+            }
+
+            // Attach the change event to all relevant dropdowns
+            $("#serviceSelect, #serviceSelect2, #serviceSelect3").change(function () {
+                updateServiceDetails(); // Update details whenever a dropdown changes
+            });
+
+            // Open calculator functionality
+            $("#opencalculator").click(function () {
+                $("#calculatorOverlay").show(); // Show calculator overlay
+            });
+
+            // Hide calculator overlay when clicking outside
+            $("#calculatorOverlay").click(function () {
+                $(this).hide();
+            });
+
+            $("#calculator").click(function (event) {
+                event.stopPropagation(); // Prevent event from bubbling up to overlay
+            });
+
+            // Add item to the table
+            $("#additem").click(function () {
+                var desiredQuantity = $("#desiredQuantity").val();
+                var price = parseFloat($("#productPrice").text());
+                var quantity = parseInt($("#productQuantity").text());
+
+                // Check if desired quantity is empty or just spaces
+                if (desiredQuantity === "" || isNaN(desiredQuantity) || price <= 0 || quantity <= 0) {
+                }
+                else {
+                    var selectedItem = $("#productSelect2").val();
+                    var inventoryItem = inventoryItems.find(function (item) {
+                        return item.name === selectedItem;
+                    });
+
+                    if (inventoryItem) {
+                        var quantity = $("#desiredQuantity").val();
+                        var total = parseFloat(inventoryItem.price) * parseInt(quantity);
+
+                        $("#tableBody").append(
+                            "<tr><td>" + inventoryItem.name + " " + inventoryItem.description + "</td><td>" + inventoryItem.price + "</td><td>" + quantity + "</td><td>" + total + "</td></tr>"
+                        );
+
+                        $("#productSelect").val('');   // Category dropdown
+                        $("#productSelect2").val('');  // Name dropdown
+                        $("#productSelect3").val('');  // Description dropdown
+                        $("#productPrice").text('0');  // Reset price display
+                        $("#productQuantity").text('0'); // Reset quantity display
+                        $("#desiredQuantity").val('');
+
+                        updateTotalAmount(); // Call function to update total amount after adding an item
+                    }
+                }
+                
+            });
+
+            // Add item to the table
+            $("#addservice").click(function () {
+                var desiredSession = $("#desiredSession").val();
+                var price = parseFloat($("#servicePrice").text());
+
+                // Check if desired session is empty, just spaces, or if the price is zero or negative
+                if (desiredSession === "" || isNaN(desiredSession) || price <= 0) {
+                    // Optionally, you can add an alert or message to inform the user
+                    alert("Invalid Input");
+                } else {
+                    var selectedItem = $("#serviceSelect2").val();
+                    var serviceItem = serviceItems.find(function (item) {
+                        return item.name === selectedItem;
+                    });
+
+                    if (serviceItem) {
+                        var session = parseInt(desiredSession);
+                        var total = parseFloat(serviceItem.price) * session;
+
+                        $("#tableBody").append(
+                            "<tr><td>" + serviceItem.name + " " + serviceItem.description + "</td><td>" + serviceItem.price + "</td><td>" + session + "</td><td>" + total + "</td></tr>"
+                        );
+
+                        // Reset the dropdowns and inputs
+                        $("#serviceSelect").val('');   // Category dropdown
+                        $("#serviceSelect2").val('');  // Name dropdown
+                        $("#serviceSelect3").val('');  // Description dropdown
+                        $("#servicePrice").text('0');  // Reset price display
+                        $("#desiredSession").val('');   // Reset desired session input
+
+                        updateTotalAmount(); // Call function to update total amount after adding an item
+                    }
+                }
+            });
+
+
+            $("#discount").on('input', function () {
+                updateTotalAmount();
+            });
+
+            $("#payment").change(function () {
+                var selectedItem = $(this).val();
+
+                if (selectedItem == "G-Cash") {
+                    $("#labelPaid").text("Reference Number");
+                } else {
+                    $("#labelPaid").text("Amount");
+                }
+
+                updateChangeOrReference();
+            });
+
+            $("#paid").on('input', function () {
+                updateChangeOrReference();
+            });
+
+            $("form").submit(function (e) {
+                var contact = $("#customerContact").val();
+                var isValidContact = /^[0]{1}[9]{1}[0-9]{9}$/.test(contact);
+
+                if (!isValidContact) {
+                    alert("Contact number must be 11 digits and start with '09'.");
+                    e.preventDefault();
+                    return false;
+                } else {
+                    $("#contactValidation").hide();
+                }
+
+                var labelChange = $("#labelChange").text().trim();
+                if (labelChange === "" || labelChange === "Invalid Amount") {
+                    e.preventDefault();
+                    return false;
+                }
+
+                var tableItems = [];
+                $("#tableBody tr").each(function () {
+                    var item = {
+                        Name: $(this).find("td:eq(0)").text(),
+                        Price: $(this).find("td:eq(1)").text(),
+                        Quantity: $(this).find("td:eq(2)").text(),
+                        Total: $(this).find("td:eq(3)").text()
+                    };
+                    tableItems.push(item);
+                });
+                $("#TableItems").val(JSON.stringify(tableItems));
+            });
+
+            $("#calculator input[type='button']").click(function () {
+                let buttonValue = $(this).val();
+
+                if (buttonValue === "=") {
+                    try {
+                        currentInput = eval(currentInput);
+                        resultField.val(currentInput);
+                    } catch (e) {
+                        resultField.val("Error");
+                    }
+                } else if (buttonValue === "Reset") {
+                    currentInput = "";
+                    resultField.val(currentInput);
+                } else if (buttonValue === "Close") {
+                    $("#calculatorOverlay").hide();
+                } else {
+                    currentInput += buttonValue;
+                    resultField.val(currentInput);
+                }
+            });
+        });
+    </script>
+
+
+</body>
+</html>

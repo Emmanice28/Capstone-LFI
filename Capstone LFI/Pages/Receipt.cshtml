@@ -1,0 +1,160 @@
+﻿@page
+@model Capstone_LFI.Pages.ReceiptModel
+@{
+    ViewData["Title"] = "Receipts";
+}
+<link rel="stylesheet" href="~/css/Design.css">
+<style>
+    body {
+        background-image: url('/images/LFI Background.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        margin: 0;
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+<div class="container">
+    <div class="full-width-box">
+        <div style="display:flex;justify-content:space-between;">
+            <h5 class="inventory-title">Receipt Management</h5>
+            <button style="width: 100px; height: 30px; border-radius: 4px; cursor: pointer;" type="button" onclick="exportTableToExcel()">Export</button>
+        </div>
+        <div class="table-wrapper">
+            <div class="table-container">
+                <table id="Table" class="table">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable(0)">Reference Number</th>
+                            <th onclick="sortTable(1)">Time</th>
+                            <th onclick="sortTable(2)">Date</th>
+                            <th onclick="sortTable(3)">Product/Service</th>
+                            <th onclick="sortTable(4)">Total Quantity</th>
+                            <th onclick="sortTable(5)">Total Session</th>
+                            <th onclick="sortTable(6)">Total Amount</th>
+                            <th onclick="sortTable(7)">Mode of Payment</th>
+                            <th onclick="sortTable(8)">Paid Reference Number</th>
+                            <th onclick="sortTable(9)">Change</th>
+                            <th onclick="sortTable(10)">Customer Name</th>
+                            <th onclick="sortTable(11)">Customer Address</th>
+                            <th onclick="sortTable(12)">Customer Contact</th>
+                            <th onclick="sortTable(13)">Attendant Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var receipt in Model.Receipts)
+                        {
+                            <tr>
+                                <td>@receipt.ReferenceNumber</td>
+                                <td>@receipt.Time</td>
+                                <td>@receipt.Date</td>
+                                <td>@receipt.ProductService</td>
+                                <td>@receipt.TotalQuantity</td>
+                                <td>@receipt.TotalSession</td>
+                                <td>@receipt.TotalAmount</td>
+                                <td>@receipt.MOP</td>
+                                <td>@receipt.PaidRefNo</td>
+                                <td>@receipt.Change</td>
+                                <td>@receipt.CustomerName</td>
+                                <td>@receipt.CustomerAddress</td>
+                                <td>@receipt.CustomerContact</td>
+                                <td>@receipt.AttendantName</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h5>Filter</h5>
+        <div style="display:flex;width:340px;">
+            <div style="width:1020px;">
+                <label for="moduleFilter">Reference Number</label><br>
+                <div style="padding-bottom:5px;"></div>
+                <label for="actionFilter">Time</label><br>
+                <div style="padding-bottom:5px;"></div>
+                <label>Total Items: </label>
+            </div>
+            <div class="fillerright"></div>
+            <div>
+                <select id="moduleFilter" onchange="applyFilters()">
+                    <option value="">Reference Number</option>
+                    @foreach (var module in Model.Receipts.Select(x => x.ReferenceNumber).Distinct())
+                    {
+                        <option value="@module">@module</option>
+                    }
+                </select>
+                <div style="padding-bottom:5px;"></div>
+                <select id="actionFilter" onchange="applyFilters()">
+                    <option value="">Time</option>
+                    @foreach (var time in Model.Receipts.Select(x => x.Time).Distinct())
+                    {
+                        <option value="@time">@time</option>
+                    }
+                </select>
+                <div style="padding-bottom:5px;"></div>
+                <label id="rowCountLabel">Total Items: </label>
+                <div class="fillerdown"></div>
+            </div>
+        </div>
+        <button style="width:340px;" class="btn-submit" type="button" onclick="clearAllFilters()">Clear</button>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function applyFilters() {
+            const moduleFilter = document.getElementById('moduleFilter').value.toLowerCase();
+            const actionFilter = document.getElementById('actionFilter').value.toLowerCase();
+            const table = document.getElementById('Table');
+            const rows = table.getElementsByTagName('tr');
+            let visibleRowCount = 0;
+
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                const moduleCell = row.cells[0].innerText.toLowerCase();
+                const actionCell = row.cells[1].innerText.toLowerCase();
+
+                if ((moduleFilter === "" || moduleCell.includes(moduleFilter)) &&
+                    (actionFilter === "" || actionCell.includes(actionFilter))) {
+                    row.style.display = "";
+                    visibleRowCount++;
+                } else {
+                    row.style.display = "none";
+                }
+            }
+
+            document.getElementById('rowCountLabel').textContent = `Total Items: ${visibleRowCount}`;
+        }
+
+        function clearAllFilters() {
+            document.getElementById('moduleFilter').value = "";
+            document.getElementById('actionFilter').value = "";
+            applyFilters();
+        }
+
+        function sortTable(columnIndex) {
+            const table = document.getElementById("Table");
+            const rows = Array.from(table.rows).slice(1);
+            const dir = table.getAttribute("data-sort-direction") === "asc" ? "desc" : "asc";
+
+            rows.sort((a, b) => {
+                const x = a.cells[columnIndex].innerText.toLowerCase();
+                const y = b.cells[columnIndex].innerText.toLowerCase();
+                return dir === "asc" ? (x < y ? -1 : 1) : (x > y ? -1 : 1);
+            });
+
+            rows.forEach(row => table.appendChild(row));
+            table.setAttribute("data-sort-direction", dir);
+        }
+        function exportTableToExcel() {
+            var table = document.getElementById("Table");
+            var wb = XLSX.utils.table_to_book(table, { sheet: "Receipt" });
+            XLSX.writeFile(wb, "Receipt Management.xlsx");
+        }
+    </script>
+}

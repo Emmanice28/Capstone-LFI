@@ -1,0 +1,265 @@
+﻿@page
+@model Capstone_LFI.Pages.InventoryModel
+@{
+    ViewData["Title"] = "Inventory";
+}
+<link rel="stylesheet" href="~/css/Design.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+<div class="container">
+    <div class="full-width-box">
+        <div style="display:flex;justify-content:space-between;">
+            <h5 class="inventory-title">Inventory Management</h5>
+            <button style="width: 100px; height: 30px; border-radius: 4px; cursor: pointer;" type="button" onclick="exportTableToExcel()">Export</button>
+        </div>
+        <div class="table-wrapper">
+            <div class="table-container">
+                <table class="table" id="Table">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable(0)">Image</th>
+                            <th onclick="sortTable(1)">Category</th>
+                            <th onclick="sortTable(2)">Name</th>
+                            <th onclick="sortTable(3)">Description</th>
+                            <th onclick="sortTable(4)">Code</th>
+                            <th onclick="sortTable(5)">Quantity</th>
+                            <th onclick="sortTable(6)">Price</th>
+                            <th onclick="sortTable(7)">QR Code</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.InventoryList)
+                        {
+                            string backgroundColor = "";
+                            string color = "";
+                            if (item.Quantity <= 10)
+                            {
+                                backgroundColor = "#ed4646";
+                                color = "white";
+                            }
+                            else if (item.Quantity >= 11 && item.Quantity <= 20)
+                            {
+                                backgroundColor = "#f4dc94";
+                            }
+                            else if (item.Quantity >= 21 && item.Quantity <= 30)
+                            {
+                                backgroundColor = "#d9ead3";
+                            }
+                            else if (item.Quantity >= 31)
+                            {
+                                backgroundColor = "#b4f79d";
+                            }
+
+                            <tr style="background-color: @backgroundColor; color: @color;">
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.ImageBase64))
+                                    {
+                                        <img src="data:image/png;base64,@item.ImageBase64" alt="Product Image" class="product-image" />
+                                    }
+                                </td>
+                                <td>@item.Category</td>
+                                <td>@item.Name</td>
+                                <td>@item.Description</td>
+                                <td>@item.Code</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Price</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.QrCodeBase64))
+                                    {
+                                        <img src="data:image/png;base64,@item.QrCodeBase64" alt="QR Code" class="qr-code" />
+                                    }
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-edit" onclick="populateForm('@item.ID', '@item.Category', '@item.Name', '@item.Description', '@item.Code','@item.Quantity', '@item.Price', '@item.ImageBase64')">Edit</button>
+                                        <div class="fillerdown"></div>
+                                        <form method="post" class="delete-form">
+                                            <input type="hidden" name="id" value="@item.ID" />
+                                            <button class="btn-delete" type="submit" name="action" value="Delete">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="filler"></div>
+    <div class="form-container">
+        <form method="post" enctype="multipart/form-data">
+            <div>
+                <h5>Add</h5>
+                <div class="form-group-container">
+                    <div class="form-labels">
+                        <label for="Category">Category</label> <div style="padding-bottom:6px;"></div>
+                        <label for="Name">Name</label> <div style="padding-bottom:6px;"></div>
+                        <label for="Description">Description</label> <div style="padding-bottom:6px;"></div>
+                        <label for="Code">Code</label> <div style="padding-bottom:6px;"></div>
+                        <label for="Quantity">Quantity</label> <div style="padding-bottom:6px;"></div>
+                        <label for="Price">Price</label> <div style="padding-bottom:6px;"></div>
+                        <label for="Image">Upload</label> <div style="padding-bottom:6px;"></div>
+                    </div>
+                    <div class="fillerright"></div>
+                    <div class="form-inputs">
+                        <div class="form-group">
+                            <select style="font-size:12px; text-align: left; text-align-last: left;" asp-for="NewItem.Category">
+                                <option value="Soap">Soap</option>
+                                <option value="Cream">Cream</option>
+                                <option value="Lotion">Lotion</option>
+                                <option value="Food Supplement">Food Supplement</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="NewItem.Name" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="NewItem.Description" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="NewItem.Code" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="NewItem.Quantity" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="NewItem.Price" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <input type="file" asp-for="NewItemImage" class="form-control file-input" />
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-submit" id="addItem" type="submit" name="action" value="Add">Add</button>
+            </div>
+        </form>
+        <div class="filler"></div>
+        <form method="post" enctype="multipart/form-data">
+            <div>
+                <h5>Update</h5>
+                <div class="form-group-container">
+                    <div class="form-labels">
+                        <label for="ID">ID</label> <div style="padding-bottom:6px;"></div>
+                        <label for="Category">Category</label> <div style="padding-bottom:6px;"></div>
+                        <label for="Name">Name</label> <div style="padding-bottom:6px;"></div>
+                        <label for="Description">Description</label> <div style="padding-bottom:6px;"></div>
+                        <label for="Code">Code</label> <div style="padding-bottom:6px;"></div>
+                        <label for="Quantity">Quantity</label> <div style="padding-bottom:6px;"></div>
+                        <label for="Price">Price</label> <div style="padding-bottom:10px;"></div>
+                        <label for="CurrentImage">Image</label> <div style="padding-bottom:6px;"></div>
+                    </div>
+                    <div class="form-inputs">
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateItem.ID" class="form-control" id="UpdateItem_ID" readonly />
+                        </div>
+                        <div class="form-group">
+                            <select style="font-size:12px; text-align: left; text-align-last: left;" asp-for="UpdateItem.Category" id="UpdateItem_Category" />
+                                <option value="Soap">Soap</option>
+                            <option value="Cream">Cream</option>
+                            <option value="Lotion">Lotion</option>
+                            <option value="Food Supplement">Food Supplement</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateItem.Name" class="form-control" id="UpdateItem_Name" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateItem.Description" class="form-control" id="UpdateItem_Description" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateItem.Code" class="form-control" id="UpdateItem_Code" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateItem.Quantity" class="form-control" id="UpdateItem_Quantity" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateItem.Price" class="form-control" id="UpdateItem_Price" />
+                        </div>
+                        <div class="form-group">
+                            <img id="currentImage" src="" alt="Current Image" class="form-control file-input" />
+                        </div>
+                        <div class="form-group">
+                            <input type="file" asp-for="UpdateItemImage" id="updateimage" class="form-control file-input" />
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-submit" id="updateItem" type="submit" name="action" value="Update" style="width: 292px;" disabled>Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function populateForm(id, category, name, description, code, quantity, price, imageBase64) {
+        document.getElementById("UpdateItem_ID").value = id;
+        document.getElementById("UpdateItem_Category").value = category;
+        document.getElementById("UpdateItem_Name").value = name;
+        document.getElementById("UpdateItem_Description").value = description;
+        document.getElementById("UpdateItem_Code").value = code;
+        document.getElementById("UpdateItem_Quantity").value = quantity;
+        document.getElementById("UpdateItem_Price").value = price;
+
+        if (imageBase64) {
+            document.getElementById('currentImage').src = "data:image/png;base64," + imageBase64;
+        } else {
+            document.getElementById('currentImage').src = "";
+        }
+
+        document.getElementById("updateItem").disabled = false;
+    }
+
+    window.onload = function () {
+        document.getElementById("updateItem").disabled = true;
+    };
+
+    function updatedisable() {
+        document.getElementById("updateItem").disabled = true;
+    };
+
+    function sortTable(columnIndex) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("Table");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[columnIndex];
+                y = rows[i + 1].getElementsByTagName("TD")[columnIndex];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+    function exportTableToExcel() {
+        var table = document.getElementById("Table");
+        var wb = XLSX.utils.table_to_book(table, { sheet: "Inventory" });
+        XLSX.writeFile(wb, "Inventory Management.xlsx");
+    }
+</script>

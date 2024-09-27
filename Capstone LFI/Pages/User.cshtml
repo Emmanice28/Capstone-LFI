@@ -1,0 +1,171 @@
+﻿@page
+@model Capstone_LFI.Pages.UserModel
+@{
+    ViewData["Title"] = "Manage Users";
+}
+<link rel="stylesheet" href="~/css/Design.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+<div class="container">
+    <div class="full-width-box">
+        <div style="display:flex;justify-content:space-between;">
+            <h5 class="inventory-title">User Management</h5>
+            <button style="width: 100px; height: 30px; border-radius: 4px; cursor: pointer;" type="button" onclick="exportTableToExcel()">Export</button>
+        </div>
+        <div class="table-wrapper">
+            <div class="table-container">
+                <table class="table" id="Table">
+                    <thead>
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Username</th>
+                            <th>Position</th>
+                            <th>Password</th>
+                            <th>User Level</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model.UserList)
+                        {
+                            <tr>
+                                <td>@user.Fullname</td>
+                                <td>@user.Username</td>
+                                <td>@user.Position</td>
+                                <td>@user.Pass</td>
+                                <td>@user.UserLevel</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-edit" onclick="populateForm('@user.ID', '@user.Fullname', '@user.Username', '@user.Position', '@user.Pass', '@user.UserLevel')">Edit</button>
+                                        <div class="fillerdown"></div>
+                                        <form method="post" class="delete-form">
+                                            <input type="hidden" name="id" value="@user.ID" />
+                                            <button class="btn-delete" type="submit" name="action" value="Delete">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <form method="post">
+            <div>
+                <h5>Add User</h5>
+                <div class="form-group-container">
+                    <div class="form-labels">
+                        <label for="FirstName">First Name</label>
+                        <div style="padding-bottom:6px;"></div>
+                        <label for="MiddleName">Middle Name (Opt)</label>
+                        <div style="padding-bottom:6px;"></div>
+                        <label for="LastName">Last Name</label>
+                        <div style="padding-bottom:6px;"></div>
+                        <label for="Position">Position</label>
+                        <div style="padding-bottom:6px;"></div>
+                        <label for="Pass">Password</label>
+                        <div style="padding-bottom:6px;"></div>
+                        <label for="UserLevel">User Level</label>
+                        <div style="padding-bottom:6px;"></div>
+                    </div>
+                    <div class="form-inputs">
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="FirstName" class="form-control" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="MiddleName" class="form-control" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="LastName" class="form-control" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="NewUser.Position" class="form-control" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="NewUser.Pass" class="form-control" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="NewUser.UserLevel" class="form-control" style="width:200px;" />
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-submit" id="addUser" type="submit" name="action" value="Add" style="width: 325px;">Add User</button>
+                <p></p>
+            </div>
+        </form>
+
+        <form method="post">
+            <div>
+                <h5>Update User</h5>
+                <div class="form-group-container">
+                    <div class="form-labels">
+                        <label for="ID">ID</label>
+                        <div style="padding-bottom:6px;"></div>
+                        <label for="Fullname">Fullname</label>
+                        <div style="padding-bottom:6px;"></div>
+                        <label for="Username">Username</label>
+                        <div style="padding-bottom:6px;"></div>
+                        <label for="Position">Position</label>
+                        <div style="padding-bottom:6px;"></div>
+                        <label for="Pass">Password</label>
+                        <div style="padding-bottom:6px;"></div>
+                        <label for="UserLevel">User Level</label>
+                        <div style="padding-bottom:6px;"></div>
+                    </div>
+                    <div class="form-inputs">
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateUser.ID" class="form-control" id="UpdateUser_ID" readonly style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateUser.Fullname" class="form-control" id="UpdateUser_Fullname" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateUser.Username" class="form-control" id="UpdateUser_Username" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateUser.Position" class="form-control" id="UpdateUser_Position" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateUser.Pass" class="form-control" id="UpdateUser_Pass" style="width:200px;" />
+                        </div>
+                        <div class="form-group">
+                            <input style="font-size:12px;" asp-for="UpdateUser.UserLevel" class="form-control" id="UpdateUser_UserLevel" style="width:200px;" />
+                        </div>
+                    </div>
+                </div>
+                <button onclick="updatedisable" class="btn-submit" id="updateUser" type="submit" name="action" value="Update" style="width: 325px;">Update User</button>
+                <p></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function populateForm(id, fullname, username, position, pass, userLevel) {
+        document.getElementById("UpdateUser_ID").value = id;
+        document.getElementById("UpdateUser_Fullname").value = fullname;
+        document.getElementById("UpdateUser_Username").value = username;
+        document.getElementById("UpdateUser_Position").value = position;
+        document.getElementById("UpdateUser_Pass").value = pass;
+        document.getElementById("UpdateUser_UserLevel").value = userLevel;
+
+        document.getElementById("updateUser").disabled = false;
+    }
+
+    window.onload = function () {
+        document.getElementById("updateUser").disabled = true;
+    };
+
+    function updatedisable() {
+        document.getElementById("updateUser").disabled = true;
+    };
+    function exportTableToExcel() {
+        var table = document.getElementById("Table");
+        var wb = XLSX.utils.table_to_book(table, { sheet: "User" });
+        XLSX.writeFile(wb, "User Management.xlsx");
+    }
+</script>

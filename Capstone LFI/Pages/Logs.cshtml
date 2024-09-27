@@ -1,0 +1,244 @@
+﻿@page
+@model Capstone_LFI.Pages.LogsModel
+@{
+    ViewData["Title"] = "Logs";
+}
+<link rel="stylesheet" href="~/css/Design.css">
+<style>
+    body {
+        background-image: url('/images/LFI Background.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        margin: 0;
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+<div class="container">
+    <div class="full-width-box">
+        <div style="display:flex;justify-content:space-between;">
+            <h5 class="inventory-title">Logs Management</h5>
+            <button style="width: 100px; height: 30px; border-radius: 4px; cursor: pointer;" type="button" onclick="exportTableToExcel()">Export</button>
+        </div>
+        <div class="table-wrapper">
+            <div class="table-container">
+                <table id="Table" class="table">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable(0)">Module</th>
+                            <th onclick="sortTable(1)">Action</th>
+                            <th onclick="sortTable(2)">Description</th>
+                            <th onclick="sortTable(3)">Sub-Description</th>
+                            <th onclick="sortTable(4)">Time</th>
+                            <th onclick="sortTable(5)">Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.LogList)
+                        {
+                            <tr>
+                                <td>@item.Module</td>
+                                <td>@item.Action</td>
+                                <td>@item.Info</td>
+                                <td>@item.SubInfo</td>
+                                <td>@item.Time</td>
+                                <td>@item.Date</td>
+                                <td>
+                                    <button style="width:70px; background-color: #d2a84e; border: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s;" type="button" onclick="populateForm('@item.ID', '@item.Module', '@item.Action', '@item.Info', '@item.SubInfo', '@item.Time', '@item.Date')" onmouseover="this.style.backgroundColor='#e9c579'" onmouseout="this.style.backgroundColor='#d2a84e'">Edit</button>
+                                    <div class="filler"></div>
+                                    <form method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="@item.ID" />
+                                        <button style="width:70px;" type="submit" name="action" value="Delete">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <form method="post">
+            <h5>Update</h5>
+            <div class="form-group-container">
+                <div>
+                    <label style="padding-bottom: 5px;" for="ID">ID</label><br>
+                    <label style="padding-bottom: 5px;" for="Module">Module</label><br>
+                    <label style="padding-bottom: 5px;" for="Action">Action</label><br>
+                    <label style="padding-bottom: 5px;" for="Info">Description</label><br>
+                    <label style="padding-bottom: 5px;" for="SubInfo">Sub-Description</label><br>
+                    <label style="padding-bottom: 5px;" for="Time">Time</label><br>
+                    <label style="padding-bottom: 5px;" for="Date">Date</label><br>
+                </div>
+                <div class="fillerright"></div>
+                <div>
+                    <div class="form-group">
+                        <input style="width:200px; font-size:12px;" asp-for="UpdateItem.ID" class="form-control" id="UpdateItem_ID" readonly />
+                    </div>
+                    <div class="form-group">
+                        <input style="font-size:12px;" asp-for="UpdateItem.Module" class="form-control" id="UpdateItem_Module" />
+                    </div>
+                    <div class="form-group">
+                        <input style="font-size:12px;" asp-for="UpdateItem.Action" class="form-control" id="UpdateItem_Action" />
+                    </div>
+                    <div class="form-group">
+                        <input style="font-size:12px;" asp-for="UpdateItem.Info" class="form-control" id="UpdateItem_Info" />
+                    </div>
+                    <div class="form-group">
+                        <input style="font-size:12px;" asp-for="UpdateItem.SubInfo" class="form-control" id="UpdateItem_SubInfo" />
+                    </div>
+                    <div class="form-group">
+                        <input style="font-size:12px;" asp-for="UpdateItem.Time" class="form-control" id="UpdateItem_Time" />
+                    </div>
+                    <div class="form-group">
+                        <input style="font-size:12px;" asp-for="UpdateItem.Date" class="form-control" id="UpdateItem_Date" />
+                    </div>
+                </div>
+            </div>
+            <button style="width: 320px;" type="submit" name="action" value="Update">Update</button>
+        </form>
+
+        <div class="filler"></div>
+        <h5>Filter</h5>
+        <div style="display:flex;width:320px;">
+            <div style="width:1020px;">
+                <label style="padding-bottom: 5px;" for="Module">Module</label><br>
+                <label style="padding-bottom: 5px;" for="Action">Action</label><br>
+                <label style="padding-bottom: 5px;">Total Items: </label>
+            </div>
+            <div class="fillerright"></div>
+            <div>
+                <div style="padding-bottom:5px;">
+                    <select id="moduleFilter" onchange="updateActionFilter(); applyFilters()">
+                        <option value="">Module</option>
+                        @foreach (var module in Model.LogList.Select(x => x.Module).Distinct())
+                        {
+                            <option value="@module">@module</option>
+                        }
+                    </select>
+                </div>
+                <div style="padding-bottom:5px;">
+                    <select id="actionFilter" onchange="applyFilters()">
+                        <option value="">Action</option>
+                    </select>
+                </div>
+                <label id="rowCountLabel">Total Items: </label>
+            </div>
+        </div>
+
+        <button style="width: 320px;" type="button" onclick="clearAllFilters()">Clear</button>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function populateForm(id, module, action, info, subinfo, time, date) {
+            document.getElementById('UpdateItem_ID').value = id;
+            document.getElementById('UpdateItem_Module').value = module;
+            document.getElementById('UpdateItem_Action').value = action;
+            document.getElementById('UpdateItem_Info').value = info;
+            document.getElementById('UpdateItem_SubInfo').value = subinfo;
+            document.getElementById('UpdateItem_Time').value = time;
+            document.getElementById('UpdateItem_Date').value = date;
+        }
+
+        function sortTable(columnIndex) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("Table");
+            switching = true;
+            dir = "asc";
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[columnIndex];
+                    y = rows[i + 1].getElementsByTagName("TD")[columnIndex];
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchcount++;
+                } else {
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+
+        function updateActionFilter() {
+            const moduleFilter = document.getElementById('moduleFilter').value;
+            const actionFilter = document.getElementById('actionFilter');
+            actionFilter.innerHTML = '<option value="">Action</option>';
+
+            const table = document.getElementById('Table');
+            const rows = table.getElementsByTagName('tr');
+            const actions = new Set();
+
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                const moduleCell = row.cells[0].innerText;
+                if (moduleCell === moduleFilter) {
+                    actions.add(row.cells[1].innerText);
+                }
+            }
+
+            actions.forEach(action => {
+                const option = document.createElement('option');
+                option.value = action;
+                option.textContent = action;
+                actionFilter.appendChild(option);
+            });
+        }
+
+        function applyFilters() {
+            const moduleFilter = document.getElementById('moduleFilter').value.toLowerCase();
+            const actionFilter = document.getElementById('actionFilter').value.toLowerCase();
+            const table = document.getElementById('Table');
+            const rows = table.getElementsByTagName('tr');
+            let rowCount = 0;
+
+            for (let i = 1; i < rows.length; i++) {
+                const moduleCell = rows[i].cells[0].innerText.toLowerCase();
+                const actionCell = rows[i].cells[1].innerText.toLowerCase();
+                const showRow = (!moduleFilter || moduleCell.includes(moduleFilter)) &&
+                                (!actionFilter || actionCell.includes(actionFilter));
+
+                rows[i].style.display = showRow ? '' : 'none';
+                if (showRow) rowCount++;
+            }
+
+            document.getElementById('rowCountLabel').textContent = `Total Items: ${rowCount}`;
+        }
+
+        function clearAllFilters() {
+            document.getElementById('moduleFilter').value = '';
+            document.getElementById('actionFilter').innerHTML = '<option value="">Action</option>';
+            applyFilters();
+        }
+        function exportTableToExcel() {
+            var table = document.getElementById("Table");
+            var wb = XLSX.utils.table_to_book(table, { sheet: "Logs" });
+            XLSX.writeFile(wb, "Logs Management.xlsx");
+        }
+    </script>
+}
