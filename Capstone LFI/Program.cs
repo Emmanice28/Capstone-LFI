@@ -26,7 +26,7 @@ app.MapRazorPages();
 
 app.MapGet("/", context =>
 {
-    context.Response.Redirect("/Home");
+    context.Response.Redirect("/POS");
     return Task.CompletedTask;
 });
 

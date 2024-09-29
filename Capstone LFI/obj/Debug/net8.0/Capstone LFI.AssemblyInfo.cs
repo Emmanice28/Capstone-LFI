@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Capstone LFI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+66d325d6bb9ac83ab19f1a68687fcdc831961f9d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Capstone LFI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Capstone LFI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

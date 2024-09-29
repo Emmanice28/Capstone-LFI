@@ -3,36 +3,80 @@
   "WorkspaceRootPath": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\models\\receipt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\models\\receipt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\pos_receipt.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\pos_receipt.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\pos.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\pos.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\service.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\service.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\service.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\service.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\pos.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\pos.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\models\\attendantlogs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\models\\attendantlogs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\pos_receipt.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\pos_receipt.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\pos_receipt.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\pos_receipt.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\inventory.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\inventory.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\inventory.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\inventory.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\models\\inventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\models\\inventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\service.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\service.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\login_createaccount.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\login_createaccount.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\login_forgotpassword.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\login_forgotpassword.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\user.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\user.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\receipt.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\receipt.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\home.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\home.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\service.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\service.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\models\\receipt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\models\\receipt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\logs.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -47,10 +91,6 @@
       "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\login_forgotpassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\models\\attendantlogs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\models\\attendantlogs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\wwwroot\\css\\design.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
       "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\wwwroot\\css\\design.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
@@ -59,36 +99,16 @@
       "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\home.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\home.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\home.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\home.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\inventory.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\inventory.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\models\\service.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\models\\service.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\inventory.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\inventory.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\models\\inventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\models\\inventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\receipt.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\receipt.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\user.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -103,28 +123,12 @@
       "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\models\\attendant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\login_createaccount.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\login_createaccount.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\models\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\models\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\login_forgotpassword.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\login_forgotpassword.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\receipt.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\receipt.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\user.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\user.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\customer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -145,10 +149,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\login_createaccount.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\login_createaccount.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|c:\\users\\emman\\source\\repos\\capstone lfi\\capstone lfi\\pages\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED115829-2F69-4C55-8C5C-04EAA50FE698}|Capstone LFI\\Capstone LFI.csproj|solutionrelative:capstone lfi\\pages\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -158,7 +158,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 176,
-          "SelectedChildIndex": 33,
+          "SelectedChildIndex": 14,
           "Children": [
             {
               "$type": "Bookmark",
@@ -174,31 +174,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "Login.cshtml",
-              "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Login.cshtml",
-              "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Login.cshtml",
-              "ToolTip": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Login.cshtml",
-              "RelativeToolTip": "Capstone LFI\\Pages\\Login.cshtml",
-              "ViewState": "AQIAADUAAAAAAAAAAAAcwEEAAAArAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-31T08:00:04.921Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "Login_ForgotPassword.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Login_ForgotPassword.cshtml.cs",
-              "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Login_ForgotPassword.cshtml.cs",
-              "ToolTip": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Login_ForgotPassword.cshtml.cs",
-              "RelativeToolTip": "Capstone LFI\\Pages\\Login_ForgotPassword.cshtml.cs",
-              "ViewState": "AQIAAE8AAAAAAAAAAIAwwFgAAAA5AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-08T14:08:18.159Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 21,
               "Title": "Login_ForgotPassword.cshtml",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Login_ForgotPassword.cshtml",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Login_ForgotPassword.cshtml",
@@ -210,7 +186,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "Login_CreateAccount.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Login_CreateAccount.cshtml.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Login_CreateAccount.cshtml.cs",
@@ -222,7 +198,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Shared\\_Layout.cshtml",
@@ -234,7 +210,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 6,
               "Title": "Login.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Login.cshtml.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Login.cshtml.cs",
@@ -242,23 +218,51 @@
               "RelativeToolTip": "Capstone LFI\\Pages\\Login.cshtml.cs",
               "ViewState": "AQIAAEoAAAAAAAAAAAAcwFwAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-31T08:00:04.217Z"
+              "WhenOpened": "2024-05-31T08:00:04.217Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 5,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Login.cshtml",
+              "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Login.cshtml",
+              "ToolTip": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Login.cshtml",
+              "RelativeToolTip": "Capstone LFI\\Pages\\Login.cshtml",
+              "ViewState": "AQIAADUAAAAAAAAAAAAcwEEAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-31T08:00:04.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Login_ForgotPassword.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Login_ForgotPassword.cshtml.cs",
+              "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Login_ForgotPassword.cshtml.cs",
+              "ToolTip": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Login_ForgotPassword.cshtml.cs",
+              "RelativeToolTip": "Capstone LFI\\Pages\\Login_ForgotPassword.cshtml.cs",
+              "ViewState": "AQIAAE8AAAAAAAAAAIA/wFgAAAA5AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-08T14:08:18.159Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "Login_CreateAccount.cshtml",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Login_CreateAccount.cshtml",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Login_CreateAccount.cshtml",
               "ToolTip": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Login_CreateAccount.cshtml",
               "RelativeToolTip": "Capstone LFI\\Pages\\Login_CreateAccount.cshtml",
-              "ViewState": "AQIAAD8AAAAAAAAAAAAAAE0AAAAxAAAA",
+              "ViewState": "AQIAAGMAAAAAAAAAAAAAAE0AAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-08T13:44:14.911Z"
+              "WhenOpened": "2024-06-08T13:44:14.911Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 24,
               "Title": "Home.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Home.cshtml.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Home.cshtml.cs",
@@ -270,19 +274,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "Home.cshtml",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Home.cshtml",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Home.cshtml",
               "ToolTip": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Home.cshtml",
               "RelativeToolTip": "Capstone LFI\\Pages\\Home.cshtml",
-              "ViewState": "AQIAABQBAAAAAAAAAAAAACABAABGAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-31T08:00:02.254Z"
+              "WhenOpened": "2024-05-31T08:00:02.254Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 2,
               "Title": "AttendantLogs.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Models\\AttendantLogs.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Models\\AttendantLogs.cs",
@@ -290,84 +295,90 @@
               "RelativeToolTip": "Capstone LFI\\Models\\AttendantLogs.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-22T08:45:56.086Z"
+              "WhenOpened": "2024-09-22T08:45:56.086Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "POS.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\POS.cshtml.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\POS.cshtml.cs",
               "ToolTip": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\POS.cshtml.cs",
               "RelativeToolTip": "Capstone LFI\\Pages\\POS.cshtml.cs",
-              "ViewState": "AQIAAI4AAAAAAAAAAAAIwKIAAAAAAAAA",
+              "ViewState": "AQIAAF8AAAAAAAAAAAASwGwAAAAaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-31T11:07:33.501Z"
+              "WhenOpened": "2024-08-31T11:07:33.501Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "POS.cshtml",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\POS.cshtml",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\POS.cshtml",
               "ToolTip": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\POS.cshtml",
               "RelativeToolTip": "Capstone LFI\\Pages\\POS.cshtml",
-              "ViewState": "AQIAAAkCAAAAAAAAAAAwwBUCAAAZAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-31T07:59:51.061Z"
+              "WhenOpened": "2024-05-31T07:59:51.061Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 3,
               "Title": "POS_Receipt.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\POS_Receipt.cshtml.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\POS_Receipt.cshtml.cs",
               "ToolTip": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\POS_Receipt.cshtml.cs",
               "RelativeToolTip": "Capstone LFI\\Pages\\POS_Receipt.cshtml.cs",
-              "ViewState": "AQIAAHQAAAAAAAAAAAAcwI8AAAAAAAAA",
+              "ViewState": "AQIAACoAAAAAAAAAAAAQwEgAAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T07:43:07.063Z"
+              "WhenOpened": "2024-06-06T07:43:07.063Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "POS_Receipt.cshtml",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\POS_Receipt.cshtml",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\POS_Receipt.cshtml",
               "ToolTip": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\POS_Receipt.cshtml",
               "RelativeToolTip": "Capstone LFI\\Pages\\POS_Receipt.cshtml",
-              "ViewState": "AQIAAB0AAAAAAAAAAAAcwGgAAAAAAAAA",
+              "ViewState": "AQIAAD8AAAAAAAAAAAAAAFMAAABQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-06-06T07:40:25.755Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 8,
               "Title": "Inventory.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Inventory.cshtml.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Inventory.cshtml.cs",
               "ToolTip": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Inventory.cshtml.cs",
               "RelativeToolTip": "Capstone LFI\\Pages\\Inventory.cshtml.cs",
-              "ViewState": "AQIAAFAAAAAAAAAAAAAiwFQAAAAQAAAA",
+              "ViewState": "AQIAAHUAAAAAAAAAAAArwIMAAABQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-31T07:59:47.394Z"
+              "WhenOpened": "2024-05-31T07:59:47.394Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 7,
               "Title": "Inventory.cshtml",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Inventory.cshtml",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Inventory.cshtml",
               "ToolTip": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Inventory.cshtml",
               "RelativeToolTip": "Capstone LFI\\Pages\\Inventory.cshtml",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "ViewState": "AQIAAMIAAAAAAAAAAAAAAJwAAABSAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-31T07:59:48.26Z"
+              "WhenOpened": "2024-05-31T07:59:48.26Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 9,
               "Title": "Inventory.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Models\\Inventory.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Models\\Inventory.cs",
@@ -375,35 +386,37 @@
               "RelativeToolTip": "Capstone LFI\\Models\\Inventory.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAuwAkAAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-27T22:34:50.09Z"
+              "WhenOpened": "2024-08-27T22:34:50.09Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 16,
               "Title": "Service.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Service.cshtml.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Service.cshtml.cs",
               "ToolTip": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Service.cshtml.cs",
               "RelativeToolTip": "Capstone LFI\\Pages\\Service.cshtml.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAAGIAAAAyAAAA",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAowCMAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-31T07:59:44.837Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 10,
               "Title": "Service.cshtml",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Service.cshtml",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Service.cshtml",
               "ToolTip": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Service.cshtml",
               "RelativeToolTip": "Capstone LFI\\Pages\\Service.cshtml",
-              "ViewState": "AQIAALYAAAAAAAAAAAAuwMsAAAAAAAAA",
+              "ViewState": "AQIAALYAAAAAAAAAAAAuwMMAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-31T07:59:45.567Z"
+              "WhenOpened": "2024-05-31T07:59:45.567Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 25,
               "Title": "Service.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Models\\Service.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Models\\Service.cs",
@@ -415,7 +428,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 28,
               "Title": "Customer.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Customer.cshtml.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Customer.cshtml.cs",
@@ -427,7 +440,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "Customer.cshtml",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Customer.cshtml",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Customer.cshtml",
@@ -439,7 +452,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 30,
               "Title": "Customer.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Models\\Customer.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Models\\Customer.cs",
@@ -451,7 +464,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 27,
               "Title": "User.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\User.cshtml.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\User.cshtml.cs",
@@ -463,19 +476,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 13,
               "Title": "User.cshtml",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\User.cshtml",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\User.cshtml",
               "ToolTip": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\User.cshtml",
               "RelativeToolTip": "Capstone LFI\\Pages\\User.cshtml",
-              "ViewState": "AQIAAJkAAAAAAAAAAAAcwKsAAAAAAAAA",
+              "ViewState": "AQIAACoAAAAAAAAAAAAcwKsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-31T08:02:20.747Z"
+              "WhenOpened": "2024-05-31T08:02:20.747Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Models\\User.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Models\\User.cs",
@@ -487,7 +501,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 20,
               "Title": "Logs.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Logs.cshtml.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Logs.cshtml.cs",
@@ -499,7 +513,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 19,
               "Title": "Logs.cshtml",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Logs.cshtml",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Logs.cshtml",
@@ -511,19 +525,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 14,
               "Title": "Receipt.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Receipt.cshtml.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Receipt.cshtml.cs",
               "ToolTip": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Receipt.cshtml.cs",
               "RelativeToolTip": "Capstone LFI\\Pages\\Receipt.cshtml.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAAAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABUAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T09:58:54.496Z"
+              "WhenOpened": "2024-06-06T09:58:54.496Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 31,
               "Title": "Receipt.cshtml",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Pages\\Receipt.cshtml",
               "RelativeDocumentMoniker": "Capstone LFI\\Pages\\Receipt.cshtml",
@@ -535,20 +550,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 18,
               "Title": "Receipt.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Models\\Receipt.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Models\\Receipt.cs",
               "ToolTip": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Models\\Receipt.cs",
               "RelativeToolTip": "Capstone LFI\\Models\\Receipt.cs",
-              "ViewState": "AQIAAAcAAAAAAAAAAAA4wAsAAAAoAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAA0wAsAAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T08:56:50.325Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-06T08:56:50.325Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "Log.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Models\\Log.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Models\\Log.cs",
@@ -560,7 +574,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 29,
               "Title": "Attendant.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Models\\Attendant.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Models\\Attendant.cs",
@@ -572,7 +586,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 26,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Data\\AppDbContext.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Data\\AppDbContext.cs",
@@ -584,20 +598,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 17,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Program.cs",
               "RelativeDocumentMoniker": "Capstone LFI\\Program.cs",
               "ToolTip": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\Program.cs",
               "RelativeToolTip": "Capstone LFI\\Program.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAABwAAAAkAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-02T18:22:16.672Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-02T18:22:16.672Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 23,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\appsettings.json",
               "RelativeDocumentMoniker": "Capstone LFI\\appsettings.json",
@@ -609,7 +622,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 22,
               "Title": "Design.css",
               "DocumentMoniker": "C:\\Users\\emman\\source\\repos\\Capstone LFI\\Capstone LFI\\wwwroot\\css\\Design.css",
               "RelativeDocumentMoniker": "Capstone LFI\\wwwroot\\css\\Design.css",

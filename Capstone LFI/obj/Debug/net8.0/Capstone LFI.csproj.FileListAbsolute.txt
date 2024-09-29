@@ -146,3 +146,4 @@ C:\Users\emman\source\repos\Capstone LFI\Capstone LFI\obj\Debug\net8.0\refint\Ca
 C:\Users\emman\source\repos\Capstone LFI\Capstone LFI\obj\Debug\net8.0\Capstone LFI.pdb
 C:\Users\emman\source\repos\Capstone LFI\Capstone LFI\obj\Debug\net8.0\Capstone LFI.genruntimeconfig.cache
 C:\Users\emman\source\repos\Capstone LFI\Capstone LFI\obj\Debug\net8.0\ref\Capstone LFI.dll
+C:\Users\emman\source\repos\Capstone LFI\Capstone LFI\obj\Debug\net8.0\Capstone LFI.sourcelink.json

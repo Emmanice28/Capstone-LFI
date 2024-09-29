@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
-using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace Capstone_LFI.Pages
@@ -37,21 +36,21 @@ namespace Capstone_LFI.Pages
         {
             if (action == "Pay")
             {
-                var attendantName = Request.Form["attendantName"];
-                var customerName = Request.Form["customerName"];
-                var customerAddress = Request.Form["customerAddress"];
-                var customerContact = Request.Form["customerContact"];
-                var payment = Request.Form["payment"];
-                var paid = Request.Form["paid"];
+                var attendantName = Request.Form["attendantName"].ToString();
+                var customerName = Request.Form["customerName"].ToString();
+                var customerAddress = Request.Form["customerAddress"].ToString();
+                var customerContact = Request.Form["customerContact"].ToString();
+                var payment = Request.Form["payment"].ToString();
+                var paid = Request.Form["paid"].ToString();
+                var discount = Request.Form["discount"].ToString();
+                var tableItemsValue = Request.Form["TableItems"].ToString();
+                var htableItemsValue = Request.Form["HTableItems"].ToString();
 
-                var tableItemsValue = Request.Form["TableItems"];
-                var tableItems = tableItemsValue.ToString();
-
-                var purchaseDetails = JsonConvert.DeserializeObject<List<PurchaseItem>>(tableItems);
                 int totalQuantity = 0;
                 int totalSession = 0;
                 decimal totalAmount = 0;
 
+                var purchaseDetails = JsonConvert.DeserializeObject<List<PurchaseItem>>(tableItemsValue);
                 foreach (var item in purchaseDetails)
                 {
                     var inventoryItem = await _context.Inventory.FirstOrDefaultAsync(i => i.Name == item.Name);
@@ -68,9 +67,15 @@ namespace Capstone_LFI.Pages
                     totalAmount += item.Total;
                 }
 
+                var hpurchaseDetails = JsonConvert.DeserializeObject<List<HPurchaseItem>>(htableItemsValue);
+                foreach (var item in hpurchaseDetails)
+                {
+                    Console.WriteLine($"Category: {item.HCategory}, Name: {item.HName}, Description: {item.HDescription}, Quantity: {item.HQuantity}");
+                }
+
                 await _context.SaveChangesAsync();
 
-                var attendant = await _context.Attendant.FirstOrDefaultAsync(a => a.Name == attendantName.ToString());
+                var attendant = await _context.Attendant.FirstOrDefaultAsync(a => a.Name == attendantName);
                 if (attendant != null)
                 {
                     attendant.Status = "Unavailable";
@@ -82,7 +87,30 @@ namespace Capstone_LFI.Pages
                 var currentTime = DateTime.Now.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
                 var currentDate = DateTime.Now.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture);
 
-                var tableItems2 = tableItemsValue.ToString().Replace("{", "").Replace("}", "").Replace("[", "").Replace("]", "").Replace("\"", "");
+                decimal exactAmount = totalAmount;
+
+                if (!string.IsNullOrWhiteSpace(discount))
+                {
+                    discount = discount.Trim();
+                    if (discount.EndsWith("%"))
+                    {
+                        var numericPart = discount.TrimEnd('%');
+                        if (decimal.TryParse(numericPart, out decimal discountValue))
+                        {
+                            exactAmount -= exactAmount * (discountValue / 100);
+                        }
+                    }
+                    else if (decimal.TryParse(discount, out decimal flatDiscount))
+                    {
+                        exactAmount -= flatDiscount;
+                    }
+                    else
+                    {
+                        // Log or handle the invalid discount format
+                    }
+                }
+
+                var tableItems2 = tableItemsValue.Replace("{", "").Replace("}", "").Replace("[", "").Replace("]", "").Replace("\"", "");
 
                 await LogAction("Point of Sales", "Purchase", $"Info: {tableItems2}, MOP: {payment}, Ref No. or Paid Amt.: {paid}", $"Attendant: {attendantName}, Customer: {customerName}, Address: {customerAddress}, Customer: {customerContact}");
                 await CustomerLogAction(customerName, customerAddress, customerContact, attendantName, tableItems2, $"MOP: {payment}, RefNo or PaidAmt: {paid}");
@@ -92,24 +120,24 @@ namespace Capstone_LFI.Pages
                     referenceNumber,
                     time = currentTime,
                     date = currentDate,
-                    purchaseItems = tableItems,
+                    purchaseItems = tableItemsValue,
                     totalQuantity,
                     totalSession,
                     totalAmount,
                     paymentMethod = payment,
                     paymentReference = paid,
-                    change = (payment == "Cash" ? (decimal.Parse(paid) - totalAmount).ToString("C") : "Not Applicable"),
+                    change = (payment == "Cash" ? (decimal.Parse(paid) - exactAmount).ToString("C") : "Not Applicable"),
                     customerName,
                     customerAddress,
                     customerContact,
-                    attendantName
+                    attendantName,
+                    discount,
+                    exactAmount
                 });
             }
 
             return Page();
         }
-
-
 
         private async Task LogAction(string module, string action, string info, string subInfo)
         {
@@ -157,6 +185,13 @@ namespace Capstone_LFI.Pages
             public int Quantity { get; set; }
             public decimal Price { get; set; }
             public decimal Total { get; set; }
+        }
+        private class HPurchaseItem
+        {
+            public string HName { get; set; }
+            public int HQuantity { get; set; }
+            public string HCategory { get; set; }
+            public string HDescription { get; set; }
         }
     }
 }

@@ -55,8 +55,12 @@
                 padding-right: 10px;
                 box-sizing: border-box;
             }
-
+            
         #hiddenInventoryTable {
+            display: none;
+        }
+
+        #hiddenServiceTable {
             display: none;
         }
     </style>
@@ -173,8 +177,8 @@
             <div style="display: flex; justify-content: space-between;">
                 <div>
                     <label for="serviceSelect" style="padding-bottom: 6px;">Category</label><br>
-                    <label for="serviceSelect2" style="padding-bottom: 6px;">Name</label><br>
-                    <label for="serviceSelect3" style="padding-bottom: 4px;">Description</label><br>
+                    <label for="serviceSelect2" style=" padding-bottom: 6px;">Name</label><br>
+                    <label for="serviceSelect3" style=" padding-bottom: 4px;">Description</label><br>
                     <label for="servicePrice" style="padding-bottom: 4px;">Price</label><br>
                     <label for="desiredSession" style="padding-bottom: 6px;">Desired Session</label><br>
                 </div>
@@ -230,7 +234,23 @@
                     <label for="paid" id="labelChange">Not Applicable</label>
                 </div>
             </div>
+
+            <table id="HTableItem">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody id="HtableBody">
+                </tbody>
+            </table>
+
             <input type="hidden" id="TableItems" name="TableItems" />
+            <input type="hidden" id="HTableItems" name="HTableItems" />
+
             <button style="width: 340px;" id="pay" type="submit" name="action" value="Pay">Process</button>
         </div>
     </form>
@@ -252,6 +272,27 @@
                     <td>@item.Name</td>
                     <td>@item.Price</td>
                     <td>@item.Quantity</td>
+                    <td>@item.Description</td>
+                    <td>@item.Category</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <table id="hiddenServiceTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ServiceItems)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
                     <td>@item.Description</td>
                     <td>@item.Category</td>
                 </tr>
@@ -299,15 +340,14 @@
             function calculateTotalAmount() {
                 var totalAmount = 0;
                 $("#tableBody tr").each(function () {
-                    var totalText = $(this).find("td:eq(3)").text().trim(); // Get text and trim spaces
-                    var total = parseFloat(totalText); // Parse as float
+                    var totalText = $(this).find("td:eq(3)").text().trim();
+                    var total = parseFloat(totalText); 
 
-                    // Check if total is a valid number
                     if (!isNaN(total)) {
-                        totalAmount += total; // Add to totalAmount if valid
+                        totalAmount += total; 
                     }
                 });
-                return totalAmount.toFixed(2); // Return fixed two decimal places
+                return totalAmount.toFixed(2); 
             }
 
             function applyDiscount(totalAmount) {
@@ -356,24 +396,32 @@
                 }
             }
 
-            // Populate names based on the selected category
             $("#productSelect").change(function () {
                 var selectedCategory = $(this).val();
                 $("#productSelect2").empty().append('<option value=""> </option>');
                 $("#productSelect3").empty().append('<option value=""> </option>');
 
                 if (selectedCategory) {
+                    var uniqueNames = new Set();
+
                     var filteredItems = inventoryItems.filter(function (item) {
                         return item.category === selectedCategory;
                     });
 
                     filteredItems.forEach(function (item) {
-                        $("#productSelect2").append('<option value="' + item.name + '">' + item.name + '</option>');
+                        var trimmedName = item.name && item.name.trim();
+                        if (trimmedName) {
+                            uniqueNames.add(trimmedName);
+                        }
+                    });
+
+                    uniqueNames.forEach(function (name) {
+                        $("#productSelect2").append('<option value="' + name + '">' + name + '</option>');
                     });
                 }
             });
 
-            // Populate descriptions based on the selected name and category
+
             $("#productSelect2").change(function () {
                 var selectedCategory = $("#productSelect").val();
                 var selectedItemName = $(this).val();
@@ -390,17 +438,14 @@
                 }
             });
 
-            // Update price and quantity when a description is selected
             function updateProductDetails() {
                 var selectedItemName = $("#productSelect2").val();
-                var selectedDescription = $("#productSelect3").val() || " "; // Default to blank if no value selected
+                var selectedDescription = $("#productSelect3").val() || " "; 
 
-                // Find inventory item based on selected item name and description
                 var inventoryItem = inventoryItems.find(function (item) {
                     return item.name === selectedItemName && item.description === selectedDescription;
                 });
 
-                // Update price and quantity display
                 if (inventoryItem) {
                     $("#productPrice").text(inventoryItem.price);
                     $("#productQuantity").text(inventoryItem.quantity);
@@ -410,10 +455,47 @@
                 }
             }
 
-            // Attach the change event to all relevant dropdowns
             $("#productSelect, #productSelect2, #productSelect3").change(function () {
-                updateProductDetails(); // Update details whenever a dropdown changes
+                updateProductDetails();
             });
+
+            $("#additem").click(function () {
+                var desiredQuantity = $("#desiredQuantity").val();
+                var price = parseFloat($("#productPrice").text());
+                var quantity = parseInt($("#productQuantity").text());
+
+                if (desiredQuantity === "" || isNaN(desiredQuantity) || price <= 0 || quantity <= 0) {
+                } else {
+                    var selectedItem = $("#productSelect2").val();
+                    var inventoryItem = inventoryItems.find(function (item) {
+                        return item.name === selectedItem;
+                    });
+
+                    if (inventoryItem) {
+                        var quantityToAdd = parseInt(desiredQuantity);
+                        var updatedQuantity = quantity - quantityToAdd;
+                        var total = parseFloat(inventoryItem.price) * quantityToAdd;
+
+                        $("#tableBody").append(
+                            "<tr><td>" + inventoryItem.category + " " + inventoryItem.name + " " + inventoryItem.description + "</td><td>" + inventoryItem.price + "</td><td>" + quantityToAdd + "</td><td>" + total + "</td></tr>"
+                        );
+
+                        $("#HtableBody").append(
+                            "<tr><td>" + inventoryItem.category + "</td><td>" + inventoryItem.name + "</td><td>" + inventoryItem.description + "</td><td>" + updatedQuantity + "</td></tr>"
+                        );
+
+                        $("#productSelect").val('');
+                        $("#productSelect2").val('');
+                        $("#productSelect3").val('');
+                        $("#productPrice").text('0');
+                        $("#productQuantity").text('0');
+                        $("#desiredQuantity").val('');
+
+                        updateTotalAmount();
+                    }
+                }
+            });
+
 
             $("#serviceSelect").change(function () {
                 var selectedCategory = $(this).val();
@@ -421,17 +503,26 @@
                 $("#serviceSelect3").empty().append('<option value=""> </option>');
 
                 if (selectedCategory) {
+                    var uniqueNames = new Set();
+
                     var filteredItems = serviceItems.filter(function (item) {
                         return item.category === selectedCategory;
                     });
 
                     filteredItems.forEach(function (item) {
-                        $("#serviceSelect2").append('<option value="' + item.name + '">' + item.name + '</option>');
+                        var trimmedName = item.name && item.name.trim();
+                        if (trimmedName) {
+                            uniqueNames.add(trimmedName);
+                        }
+                    });
+
+                    uniqueNames.forEach(function (name) {
+                        $("#serviceSelect2").append('<option value="' + name + '">' + name + '</option>');
                     });
                 }
             });
 
-            // Populate descriptions based on the selected name and category
+
             $("#serviceSelect2").change(function () {
                 var selectedCategory = $("#serviceSelect").val();
                 var selectedItemName = $(this).val();
@@ -448,17 +539,14 @@
                 }
             });
 
-            // Update price and quantity when a description is selected
             function updateServiceDetails() {
                 var selectedItemName = $("#serviceSelect2").val();
-                var selectedDescription = $("#serviceSelect3").val() || " "; // Default to blank if no value selected
+                var selectedDescription = $("#serviceSelect3").val() || " "; 
 
-                // Find inventory item based on selected item name and description
                 var serviceItem = serviceItems.find(function (sitem) {
                     return sitem.name === selectedItemName && sitem.description === selectedDescription;
                 });
 
-                // Update price and quantity display
                 if (serviceItem) {
                     $("#servicePrice").text(serviceItem.price);
                     $("#serviceSession").text(serviceItem.quantity);
@@ -468,69 +556,30 @@
                 }
             }
 
-            // Attach the change event to all relevant dropdowns
             $("#serviceSelect, #serviceSelect2, #serviceSelect3").change(function () {
-                updateServiceDetails(); // Update details whenever a dropdown changes
+                updateServiceDetails(); 
             });
 
-            // Open calculator functionality
             $("#opencalculator").click(function () {
-                $("#calculatorOverlay").show(); // Show calculator overlay
+                $("#calculatorOverlay").show(); 
             });
 
-            // Hide calculator overlay when clicking outside
             $("#calculatorOverlay").click(function () {
                 $(this).hide();
             });
 
             $("#calculator").click(function (event) {
-                event.stopPropagation(); // Prevent event from bubbling up to overlay
+                event.stopPropagation(); 
             });
 
-            // Add item to the table
-            $("#additem").click(function () {
-                var desiredQuantity = $("#desiredQuantity").val();
-                var price = parseFloat($("#productPrice").text());
-                var quantity = parseInt($("#productQuantity").text());
-
-                // Check if desired quantity is empty or just spaces
-                if (desiredQuantity === "" || isNaN(desiredQuantity) || price <= 0 || quantity <= 0) {
-                }
-                else {
-                    var selectedItem = $("#productSelect2").val();
-                    var inventoryItem = inventoryItems.find(function (item) {
-                        return item.name === selectedItem;
-                    });
-
-                    if (inventoryItem) {
-                        var quantity = $("#desiredQuantity").val();
-                        var total = parseFloat(inventoryItem.price) * parseInt(quantity);
-
-                        $("#tableBody").append(
-                            "<tr><td>" + inventoryItem.name + " " + inventoryItem.description + "</td><td>" + inventoryItem.price + "</td><td>" + quantity + "</td><td>" + total + "</td></tr>"
-                        );
-
-                        $("#productSelect").val('');   // Category dropdown
-                        $("#productSelect2").val('');  // Name dropdown
-                        $("#productSelect3").val('');  // Description dropdown
-                        $("#productPrice").text('0');  // Reset price display
-                        $("#productQuantity").text('0'); // Reset quantity display
-                        $("#desiredQuantity").val('');
-
-                        updateTotalAmount(); // Call function to update total amount after adding an item
-                    }
-                }
-                
-            });
-
-            // Add item to the table
             $("#addservice").click(function () {
                 var desiredSession = $("#desiredSession").val();
                 var price = parseFloat($("#servicePrice").text());
+                var category = $("#serviceSelect").val();
+                var name = $("#serviceSelect2").val();
+                var description = $("#serviceSelect3").val();
 
-                // Check if desired session is empty, just spaces, or if the price is zero or negative
                 if (desiredSession === "" || isNaN(desiredSession) || price <= 0) {
-                    // Optionally, you can add an alert or message to inform the user
                     alert("Invalid Input");
                 } else {
                     var selectedItem = $("#serviceSelect2").val();
@@ -539,25 +588,23 @@
                     });
 
                     if (serviceItem) {
-                        var session = parseInt(desiredSession);
-                        var total = parseFloat(serviceItem.price) * session;
+                        var session = $("#desiredSession").val();
+                        var total = parseFloat(price) * parseInt(session);
 
                         $("#tableBody").append(
-                            "<tr><td>" + serviceItem.name + " " + serviceItem.description + "</td><td>" + serviceItem.price + "</td><td>" + session + "</td><td>" + total + "</td></tr>"
+                            "<tr><td>" + category + " " + name + " " + description + "</td><td>" + price + "</td><td>" + session + "</td><td>" + total + "</td></tr>"
                         );
 
-                        // Reset the dropdowns and inputs
-                        $("#serviceSelect").val('');   // Category dropdown
-                        $("#serviceSelect2").val('');  // Name dropdown
-                        $("#serviceSelect3").val('');  // Description dropdown
-                        $("#servicePrice").text('0');  // Reset price display
-                        $("#desiredSession").val('');   // Reset desired session input
+                        $("#serviceSelect").val('');
+                        $("#serviceSelect2").val('');
+                        $("#serviceSelect3").val('');
+                        $("#servicePrice").text('0');
+                        $("#desiredSession").val('');
 
-                        updateTotalAmount(); // Call function to update total amount after adding an item
+                        updateTotalAmount();
                     }
                 }
             });
-
 
             $("#discount").on('input', function () {
                 updateTotalAmount();
@@ -577,37 +624,6 @@
 
             $("#paid").on('input', function () {
                 updateChangeOrReference();
-            });
-
-            $("form").submit(function (e) {
-                var contact = $("#customerContact").val();
-                var isValidContact = /^[0]{1}[9]{1}[0-9]{9}$/.test(contact);
-
-                if (!isValidContact) {
-                    alert("Contact number must be 11 digits and start with '09'.");
-                    e.preventDefault();
-                    return false;
-                } else {
-                    $("#contactValidation").hide();
-                }
-
-                var labelChange = $("#labelChange").text().trim();
-                if (labelChange === "" || labelChange === "Invalid Amount") {
-                    e.preventDefault();
-                    return false;
-                }
-
-                var tableItems = [];
-                $("#tableBody tr").each(function () {
-                    var item = {
-                        Name: $(this).find("td:eq(0)").text(),
-                        Price: $(this).find("td:eq(1)").text(),
-                        Quantity: $(this).find("td:eq(2)").text(),
-                        Total: $(this).find("td:eq(3)").text()
-                    };
-                    tableItems.push(item);
-                });
-                $("#TableItems").val(JSON.stringify(tableItems));
             });
 
             $("#calculator input[type='button']").click(function () {
@@ -631,8 +647,85 @@
                 }
             });
         });
+
+        $("form").submit(function (e) {
+            var customerName = $("#customerName").val();
+            var customerAddress = $("#customerAddress").val();
+            var customerContact = $("#customerContact").val();
+            var attendantName = $("#attendantName").val();
+            var totalAmount = parseFloat($("#totalAmount").text());
+            var labelChange = $("#labelChange").text().trim();
+            var discount = $("#discount").text().trim();
+            var exactAmount = $("#totalAmount").text();
+
+            var isValidContact = /^[0]{1}[9]{1}[0-9]{9}$/.test(customerContact);
+
+            if (customerName === "" ||
+                customerAddress === "" ||
+                customerContact === "") {
+
+                alert("Invalid customer details.");
+                e.preventDefault();
+                return;
+            }
+
+            if (!isValidContact) {
+                alert("Contact number must be 11 digits and start with '09'.");
+                e.preventDefault();
+                return false;
+            }
+
+            if ((labelChange === "Not Applicable" && payment === "Cash") || labelChange === "Invalid Amount") {
+                alert("Transaction failed.");
+                e.preventDefault();
+                return;
+            } else {
+                $("#contactValidation").hide();
+            }
+
+            if (labelChange === "" || labelChange === "Invalid Amount") {
+                e.preventDefault();
+                return false;
+            }
+
+            var tableItems = [];
+            $("#tableBody tr").each(function () {
+                if ($(this).find("td").length > 0) {
+                    var item = {
+                        Name: $(this).find("td:eq(0)").text().trim(),
+                        Price: parseFloat($(this).find("td:eq(1)").text().trim()),
+                        Quantity: parseInt($(this).find("td:eq(2)").text().trim()),
+                        Total: parseFloat($(this).find("td:eq(3)").text().trim())
+                    };
+
+                    if (item.Name && !isNaN(item.Price) && !isNaN(item.Quantity) && !isNaN(item.Total)) {
+                        tableItems.push(item);
+                    }
+                }
+            });
+            $("#TableItems").val(JSON.stringify(tableItems));
+
+            // Serialize the data from the HTableItem as well
+            var HTableItems = [];
+            $("#HtableBody tr").each(function () {
+                if ($(this).find("td").length > 0) {
+                    var hiddenItem = {
+                        Category: $(this).find("td:eq(0)").text().trim(),
+                        Name: $(this).find("td:eq(1)").text().trim(),
+                        Description: $(this).find("td:eq(2)").text().trim(),
+                        Quantity: parseInt($(this).find("td:eq(3)").text().trim())
+                    };
+
+                    if (hiddenItem.Name && !isNaN(hiddenItem.Quantity)) {
+                        HTableItems.push(hiddenItem);
+                    }
+                }
+            });
+
+            $("#HTableItems").val(JSON.stringify(HTableItems));
+
+        });
+
     </script>
-
-
 </body>
 </html>

@@ -27,66 +27,50 @@ namespace Capstone_LFI.Pages
         public string PaymentMethod { get; set; }
         public string PaidRefNo { get; set; }
         public string Change { get; set; }
+        public string Discount { get; set; }
         public string CustomerName { get; set; }
         public string CustomerAddress { get; set; }
         public string CustomerContact { get; set; }
         public string AttendantName { get; set; }
         public string ProductService { get; set; }
+        public string ExactAmount { get; set; }
 
         public class PurchaseItem
         {
             public string Name { get; set; }
-            public int Quantity { get; set; }
-            public decimal Price { get; set; }
-            public decimal Total { get; set; }
+            public int? Quantity { get; set; }
+            public decimal? Price { get; set; }
+            public decimal? Total { get; set; }
         }
 
         public void OnGet(string time, string date, string purchaseItems, string totalQuantity, string totalSession,
             string totalAmount, string paymentMethod, string paymentReference, string change, string customerName,
-            string customerAddress, string customerContact, string attendantName)
+            string customerAddress, string customerContact, string attendantName, string discount, string exactAmount)
         {
             ReferenceNumber = GenerateUniqueReferenceNumber();
             Time = time;
             Date = date;
-            PurchaseItems = Newtonsoft.Json.JsonConvert.DeserializeObject<List<PurchaseItem>>(purchaseItems);
 
-            if (totalSession == "0")
-            {
-                ProductService = string.Join(", ", PurchaseItems.Select(item => $"Name: {item.Name}, Quantity: {item.Quantity}, Price: {item.Price}, Total: {item.Total}"));
-            }
-            else if (totalQuantity == "0")
-            {
-                ProductService = string.Join(", ", PurchaseItems.Select(item => $"Name: {item.Name}, Session: {item.Quantity}, Price: {item.Price}, Total: {item.Total}"));
-            }
-            else
-            {
-                ProductService = string.Join(", ", PurchaseItems.Select(item => $"Name: {item.Name}, Quantity/Session: {item.Quantity}, Price: {item.Price}, Total: {item.Total}"));
-            }
-            
-            if (totalQuantity == "0")
-            {
-                TotalQuantity = " ";
-            }
-            else
-            {
-                TotalQuantity = string.IsNullOrEmpty(totalQuantity) ? " " : totalQuantity;
-            }
-            if (totalSession == "0")
-            {
-                TotalSession = " ";
-            }
-            else
-            {
-                TotalSession = string.IsNullOrEmpty(totalSession) ? " " : totalSession;
-            }
-            TotalAmount = string.IsNullOrEmpty(totalAmount) ? " " : totalAmount;
-            PaymentMethod = string.IsNullOrEmpty(paymentMethod) ? " " : paymentMethod;
-            PaidRefNo = string.IsNullOrEmpty(paymentReference) ? " " : (paymentReference.Length >= 8 ? "Reference Number: " + paymentReference : "Paid Amount: " + paymentReference);
+            PurchaseItems = string.IsNullOrEmpty(purchaseItems)
+                ? new List<PurchaseItem>()
+                : Newtonsoft.Json.JsonConvert.DeserializeObject<List<PurchaseItem>>(purchaseItems) ?? new List<PurchaseItem>();
+
+            ProductService = string.Join(", ", PurchaseItems.Select(p => p.Name).Where(n => !string.IsNullOrEmpty(n)));
+
+            TotalQuantity = totalQuantity ?? "0";
+            TotalSession = totalSession ?? "0";
+            TotalAmount = totalAmount ?? "0";
+            PaymentMethod = paymentMethod ?? "Not Specified";
+            PaidRefNo = string.IsNullOrEmpty(paymentReference)
+                ? "Not Provided"
+                : (paymentReference.Length >= 8 ? "Reference Number: " + paymentReference : "Paid Amount: " + paymentReference);
             Change = string.IsNullOrEmpty(change) ? "None" : new string(change.SkipWhile(c => !char.IsDigit(c)).ToArray());
-            CustomerName = string.IsNullOrEmpty(customerName) ? "None" : customerName;
-            CustomerAddress = string.IsNullOrEmpty(customerAddress) ? " " : customerAddress;
-            CustomerContact = string.IsNullOrEmpty(customerContact) ? " " : customerContact;
-            AttendantName = string.IsNullOrEmpty(attendantName) ? " " : attendantName;
+            CustomerName = customerName ?? "None";
+            CustomerAddress = customerAddress ?? " ";
+            CustomerContact = customerContact ?? " ";
+            AttendantName = attendantName ?? " ";
+            Discount = discount ?? "None";
+            ExactAmount = exactAmount ?? "0";
 
             AddDataToDatabase();
         }

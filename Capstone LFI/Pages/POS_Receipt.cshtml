@@ -67,21 +67,21 @@
                                 <tr>
                                     <td>@item.Quantity</td>
                                     <td>@item.Name</td>
-                                    <td>@item.Price.ToString("C")</td>
-                                    <td>@item.Total.ToString("C")</td>
+                                    <td>@string.Format("{0:C}", item.Price)</td>
+                                    <td>@string.Format("{0:C}", item.Total)</td>
                                 </tr>
                             }
                             <tr style="border:1px solid black;">
-                                <td colspan="3">Total Quantity</td>
-                                <td style="font-weight:bold;">@Model.TotalQuantity</td>
-                            </tr>
-                            <tr style="border:1px solid black;">
-                                <td colspan="3">Total Session</td>
+                                <td colspan="3">Total Session and Quantity</td>
                                 <td style="font-weight:bold;">@Model.TotalSession</td>
                             </tr>
-                            <tr>
+                            <tr style="border:1px solid black;">
+                                <td colspan="3">Discount</td>
+                                <td style="font-weight:bold;">@Model.Discount</td>
+                            </tr>
+                            <tr style="border:1px solid black;">
                                 <td colspan="3">Total Amount</td>
-                                <td style="font-weight:bold;">@Model.TotalAmount</td>
+                                <td style="font-weight:bold;">@Model.ExactAmount</td>
                             </tr>
                         </tbody>
                     </table>
@@ -89,6 +89,7 @@
                 <div>
                     <div class="details">
                         <label>Mode of Payment: @Model.PaymentMethod</label><br />
+                        <label>Exact Amount: @Model.TotalAmount</label><br />
                         <label>@Model.PaidRefNo</label><br />
                         <label>Change: @Model.Change</label><br />
                         <label>Customer Name: @Model.CustomerName</label><br />
